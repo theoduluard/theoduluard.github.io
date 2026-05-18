@@ -1,71 +1,102 @@
-# 🌟 Astro Project: A Comprehensive Website Builder 🌟
-The Astro project is a powerful and flexible website builder that utilizes the Astro framework to create fast, scalable, and maintainable websites. This project provides a robust foundation for building complex web applications, including a customizable layout, navigation, and content management system. With its modular design and extensive use of React components, this project is ideal for developers looking to create high-performance websites with a seamless user experience.
+# Personal Portfolio Website
 
-## 🚀 Features
-- **Modular Design**: The project features a modular design, allowing developers to easily customize and extend the layout, navigation, and content management system.
-- **React Components**: The project utilizes React components to provide a flexible and reusable way to build complex user interfaces.
-- **Astro Framework**: The project is built on top of the Astro framework, providing a fast, scalable, and maintainable foundation for building complex web applications.
-- **Customizable Layout**: The project includes a customizable layout system, allowing developers to easily create unique and responsive designs.
-- **Navigation System**: The project features a robust navigation system, including a sticky navigation bar and hamburger menu for mobile devices.
-- **Content Management**: The project includes a basic content management system, allowing developers to easily manage and update website content.
+This repository contains the source code for my personal portfolio website, built with Astro, React, and Tailwind CSS. The site serves as a comprehensive showcase of my skills, professional experience, and academic projects, presented in a clean, performant, and bilingual (French/English) interface.
 
-## 🛠️ Tech Stack
-- **Frontend**: Astro, React, Tailwind CSS
-- **Backend**: None (static site generator)
-- **Database**: None (static site generator)
-- **Build Tools**: Vite, Webpack
-- **AI Tools**: None
-- **Dependencies**: @astrojs/react, @astrojs/sitemap, @tailwindcss/vite, react, react-dom, astro, firebase, tailwindcss
+It features a range of interactive components and demos, from a full microservice architecture simulator to live demonstrations of DSLs and multi-threaded applications, all running directly in the browser. The project is automatically built and deployed to GitHub Pages via a CI/CD pipeline.
 
-## 📦 Installation
-To get started with the Astro project, follow these steps:
-1. **Clone the repository**: Clone the Astro project repository using Git.
-2. **Install dependencies**: Install the required dependencies using npm or yarn.
-3. **Build the project**: Build the project using the `npm run build` or `yarn build` command.
-4. **Start the development server**: Start the development server using the `npm run dev` or `yarn dev` command.
+## Key Features
 
-## 💻 Usage
-To use the Astro project, follow these steps:
-1. **Navigate to the website**: Navigate to the website in your web browser.
-2. **Explore the website**: Explore the website and its features, including the customizable layout, navigation, and content management system.
+*   **Static Site Generation:** Built with Astro for optimal performance, SEO, and a fast user experience.
+*   **Bilingual Content:** Fully available in both French and English, with a client-side router for seamless language switching.
+*   **Interactive Project Demos:** Embedded React and TypeScript components provide live, interactive demonstrations of various projects, including:
+    *   A microservice architecture simulator for an AI assistant.
+    *   A real-time restaurant operations dashboard using WebSockets.
+    *   A custom DSL interpreter and visual robot simulator.
+    *   An animated REST API request/response cycle.
+*   **Visitor Insights:** An optional welcome modal that uses Firebase Firestore to collect and store visitor information for statistical purposes.
+*   **Responsive Design:** Fully responsive layout built with Tailwind CSS, ensuring a polished look on all devices.
+*   **Automated Deployment:** A GitHub Actions workflow automates the build and deployment process to GitHub Pages on every push to the `main` branch.
 
-## 📂 Project Structure
-```markdown
-.
-├── astro.config.mjs
-├── package.json
-├── src
-│   ├── components
-│   │   ├── ArchitectureSimulator.tsx
-│   │   ├── Navbar.astro
-│   │   ├── SectionHeader.astro
-│   │   └── ...
-│   ├── layouts
-│   │   ├── Layout.astro
-│   │   └── ...
-│   ├── pages
-│   │   ├── index.astro
-│   │   └── ...
-│   └── ...
-├── tsconfig.json
-└── ...
+## Tech Stack
+
+*   **Frontend:** Astro, React, TypeScript, Tailwind CSS
+*   **Backend Services:** Firebase Firestore (for the visitor welcome modal)
+*   **Build & Deployment:** Node.js, Vite, GitHub Actions
+
+## Installation and Local Development
+
+To run this project locally, follow these steps.
+
+### Prerequisites
+
+*   Node.js (version `22.12.0` or higher)
+*   npm (or a compatible package manager)
+
+### Setup
+
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/theoduluard/theoduluard.github.io.git
+    cd theoduluard.github.io
+    ```
+
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
+
+3.  **Configure Environment Variables:**
+    The welcome modal feature requires a Firebase project for data storage. Create a `.env` file in the root of the project and add your Firebase project configuration:
+    ```env
+    PUBLIC_FIREBASE_API_KEY="your-api-key"
+    PUBLIC_FIREBASE_AUTH_DOMAIN="your-auth-domain"
+    PUBLIC_FIREBASE_PROJECT_ID="your-project-id"
+    PUBLIC_FIREBASE_STORAGE_BUCKET="your-storage-bucket"
+    PUBLIC_FIREBASE_MESSAGING_SENDER_ID="your-sender-id"
+    PUBLIC_FIREBASE_APP_ID="your-app-id"
+    ```
+
+4.  **Run the development server:**
+    ```bash
+    npm run dev
+    ```
+    The site will be available at `http://localhost:4321`.
+
+## Project Structure
+
+The repository is organized as a standard Astro project:
+
+```
+├── .github/
+│   └── workflows/
+│       └── deploy.yml      # CI/CD pipeline for GitHub Pages
+├── public/
+│   ├── CNAME
+│   ├── cv-en.html          # Standalone English CV
+│   └── cv-fr.html          # Standalone French CV
+├── src/
+│   ├── components/
+│   │   ├── ArchitectureSimulator.tsx # React component for AI demo
+│   │   ├── WelcomeModal.tsx    # React component with Firebase logic
+│   │   └── demos/              # Interactive demos for projects
+│   ├── layouts/
+│   │   └── Layout.astro      # Main page layout
+│   ├── pages/
+│   │   ├── en/               # English pages
+│   │   └── fr/               # French pages
+│   └── styles/
+│       └── global.css        # Global styles and animations
+├── astro.config.mjs          # Astro configuration
+└── package.json              # Project dependencies and scripts
 ```
 
-## 📸 Screenshots
+## Deployment
 
-## 🤝 Contributing
-To contribute to the Astro project, please follow these steps:
-1. **Fork the repository**: Fork the Astro project repository using Git.
-2. **Create a new branch**: Create a new branch for your contribution.
-3. **Make changes**: Make changes to the code and submit a pull request.
-4. **Review and merge**: Review and merge the pull request.
+The website is automatically deployed to GitHub Pages using the workflow defined in `.github/workflows/deploy.yml`.
 
-## 📝 License
-The Astro project is licensed under the MIT License.
-
-## 📬 Contact
-For more information about the Astro project, please contact us at [insert contact information].
-
-## 💖 Thanks Message
-This project was made possible by the contributions of many developers and the support of the Astro community. Thank you for your interest in the Astro project!
-This is written by [readme.ai](https://readme-generator-phi.vercel.app/)
+The pipeline performs the following steps:
+1.  Checks out the code from the `main` branch.
+2.  Sets up Node.js and installs dependencies using `npm ci`.
+3.  Builds the Astro project using `npm run build`. Firebase credentials from repository secrets are injected at build time.
+4.  Uploads the generated `dist/` directory as a build artifact.
+5.  A separate `deploy` job deploys the artifact to the `github-pages` environment.

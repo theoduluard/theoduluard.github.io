@@ -21,9 +21,9 @@ It features a range of interactive components and demos, from a full microservic
 | Jibrax API | https://jibrax-api-production.up.railway.app/swagger-ui/index.html | https://github.com/theoduluard/Jibrax-API |
 | JacoBhashi | https://github.com/theoduluard/Projet-HASHI/releases _(jar)_ | https://github.com/theoduluard/Projet-HASHI |
 | VoiceMail AI Assistant | — | https://github.com/theoduluard/LazyMail |
-| Allo-Mission | — | https://github.com/theoduluard/allo-mission |
+| Allo-Mission | https://allo-mission.netlify.app | https://github.com/theoduluard/allo-mission |
 | RoboML | — | https://github.com/theoduluard/DSL_RoboML |
-| At Wok | — | https://github.com/theoduluard/at-wok |
+| At Wok | https://atwok.onrender.com | https://github.com/theoduluard/at-wok |
 | GitLab CI/CD Pipeline | — | https://github.com/theoduluard/Gitlab-CICD-Pipeline-tutorial |
 
 ## Key Features

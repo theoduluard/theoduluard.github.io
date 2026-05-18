@@ -1,0 +1,153 @@
+---
+// src/components/Navbar.astro
+
+const pathname = Astro.url.pathname;
+const isEn = pathname.startsWith('/en');
+
+const navLinks = {
+    fr: [
+        { label: 'Cursus',      href: '/fr/#cursus' },
+        { label: 'Expériences', href: '/fr/#experiences' },
+        { label: 'Projets',     href: '/fr/#projets' },
+    ],
+    en: [
+        { label: 'Education',   href: '/en/#education' },
+        { label: 'Experience',  href: '/en/#experience' },
+        { label: 'Projects',    href: '/en/#projects' },
+    ]
+};
+
+const currentLinks = isEn ? navLinks.en : navLinks.fr;
+---
+
+<nav class="sticky top-0 z-[110] backdrop-blur-md bg-slate-950/80 border-b border-slate-800">
+    <div class="max-w-6xl mx-auto px-6 py-4 grid grid-cols-3 items-center">
+
+        <!-- Col 1 — TD monogram (desktop + mobile) -->
+        <div class="flex">
+            <a href={isEn ? "/en/" : "/fr/"} class="w-9 h-9 rounded-lg bg-blue-600 flex items-center justify-center text-white text-sm font-extrabold shadow-[0_0_12px_rgba(59,130,246,0.4)] hover:bg-blue-500 transition-colors">
+                TD
+            </a>
+        </div>
+
+        <!-- Col 2 — Nav links (desktop) | Hamburger centré (mobile) -->
+        <div class="flex justify-center items-center">
+            <!-- Desktop nav links -->
+            <div class="hidden md:flex gap-6 text-sm font-medium items-center">
+                {currentLinks.map(link => (
+                    <a href={link.href} class="nav-desktop-link text-slate-300 hover:text-blue-400 transition-colors">{link.label}</a>
+                ))}
+                <a href={isEn ? '/cv-en.html' : '/cv-fr.html'} target="_blank" class="text-blue-400 border border-blue-500/50 px-4 py-2 rounded-lg hover:bg-blue-600 hover:text-white transition-all shadow-[0_0_10px_rgba(59,130,246,0.1)] hover:shadow-[0_0_15px_rgba(59,130,246,0.4)]">
+                    {isEn ? 'Resume' : 'Mon CV'}
+                </a>
+            </div>
+            <!-- Mobile hamburger (centered via justify-center on parent) -->
+            <button id="hamburger" aria-label="Menu" class="md:hidden flex flex-col gap-1.5 p-2 rounded-lg hover:bg-slate-800 transition-colors">
+                <span class="hamburger-line block w-5 h-0.5 bg-slate-300 transition-all duration-300"></span>
+                <span class="hamburger-line block w-5 h-0.5 bg-slate-300 transition-all duration-300"></span>
+                <span class="hamburger-line block w-5 h-0.5 bg-slate-300 transition-all duration-300"></span>
+            </button>
+        </div>
+
+        <!-- Col 3 — Lang switcher (desktop + mobile), aligné à droite symétrique au TD -->
+        <div class="flex justify-end items-center">
+            <div class="flex items-center bg-slate-900/90 border border-slate-700 rounded-full p-1 backdrop-blur-sm shadow-lg">
+                <a href="/fr/" class={`px-3 py-1.5 text-xs font-bold rounded-full transition-all ${!isEn ? 'bg-blue-600 text-white shadow-[0_0_10px_rgba(59,130,246,0.5)]' : 'text-slate-400 hover:text-slate-200'}`}>FR</a>
+                <a href="/en/" class={`px-3 py-1.5 text-xs font-bold rounded-full transition-all ${isEn ? 'bg-blue-600 text-white shadow-[0_0_10px_rgba(59,130,246,0.5)]' : 'text-slate-400 hover:text-slate-200'}`}>EN</a>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Mobile menu panel -->
+    <div id="mobile-menu" class="hidden md:hidden border-t border-slate-800 bg-slate-950/95 backdrop-blur-md">
+        <div class="flex flex-col px-6 py-4 gap-4">
+            {currentLinks.map(link => (
+                <a href={link.href} class="text-slate-300 hover:text-blue-400 transition-colors text-base font-medium py-1 mobile-link">{link.label}</a>
+            ))}
+            <a href={isEn ? '/cv-en.html' : '/cv-fr.html'} target="_blank" class="mt-2 text-center text-blue-400 border border-blue-500/50 px-4 py-2.5 rounded-lg hover:bg-blue-600 hover:text-white transition-all font-semibold">
+                {isEn ? 'Resume' : 'Mon CV'}
+            </a>
+        </div>
+    </div>
+</nav>
+
+<script>
+    // ─── Réinitialisation complète après chaque ViewTransition ───
+    function initNavbar() {
+        const btn   = document.getElementById('hamburger');
+        const menu  = document.getElementById('mobile-menu');
+        const lines = document.querySelectorAll('.hamburger-line');
+        let open = false;
+
+        // Helper: fermer le menu mobile
+        const closeMenu = (instant = false) => {
+            if (!open && !instant) return;
+            open = false;
+            menu?.classList.add('hidden');
+            lines[0]?.classList.remove('rotate-45', 'translate-y-2');
+            lines[1]?.classList.remove('opacity-0');
+            lines[2]?.classList.remove('-rotate-45', '-translate-y-2');
+        };
+
+        // Hamburger toggle
+        btn?.addEventListener('click', () => {
+            open = !open;
+            menu?.classList.toggle('hidden', !open);
+            if (open) {
+                lines[0]?.classList.add('rotate-45', 'translate-y-2');
+                lines[1]?.classList.add('opacity-0');
+                lines[2]?.classList.add('-rotate-45', '-translate-y-2');
+            } else {
+                closeMenu(true);
+            }
+        });
+
+        // Fermeture au scroll
+        window.addEventListener('scroll', () => closeMenu(), { passive: true });
+
+        // Liens mobiles — smooth scroll fiable sur iOS Safari
+        document.querySelectorAll<HTMLAnchorElement>('.mobile-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                const href  = link.getAttribute('href') ?? '';
+                const hash  = href.includes('#') ? href.split('#')[1] : null;
+
+                if (hash) {
+                    e.preventDefault();
+                    closeMenu(true);
+                    // Petit délai pour laisser le menu se fermer avant le scroll
+                    setTimeout(() => {
+                        document.getElementById(hash)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }, 60);
+                } else {
+                    closeMenu(true);
+                }
+            });
+        });
+
+        // ─── Indicateur de section active (desktop) ───
+        const navLinks = Array.from(document.querySelectorAll<HTMLAnchorElement>('.nav-desktop-link'));
+        const sections = Array.from(document.querySelectorAll<HTMLElement>('section[id]'));
+
+        if (navLinks.length && sections.length) {
+            const activateLink = (id: string) => {
+                navLinks.forEach(link => {
+                    const isActive = (link.getAttribute('href') ?? '').endsWith(`#${id}`);
+                    link.classList.toggle('nav-link-active', isActive);
+                });
+            };
+
+            const sectionObserver = new IntersectionObserver(
+                entries => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) activateLink(entry.target.id);
+                    });
+                },
+                { rootMargin: '-20% 0px -65% 0px', threshold: 0 }
+            );
+            sections.forEach(s => sectionObserver.observe(s));
+        }
+    }
+
+    document.addEventListener('astro:page-load', initNavbar);
+</script>

@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#020617"/>
+      <stop offset="100%" style="stop-color:#0f172a"/>
+    </linearGradient>
+    <linearGradient id="nameGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#3b82f6"/>
+      <stop offset="50%" style="stop-color:#22d3ee"/>
+      <stop offset="100%" style="stop-color:#3b82f6"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="20" result="coloredBlur"/>
+      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- Ambient blobs -->
+  <circle cx="200" cy="150" r="300" fill="#3b82f6" opacity="0.06"/>
+  <circle cx="1050" cy="480" r="250" fill="#22d3ee" opacity="0.05"/>
+
+  <!-- Border frame -->
+  <rect x="32" y="32" width="1136" height="566" rx="16" fill="none" stroke="#1e293b" stroke-width="1.5"/>
+
+  <!-- Monogram badge -->
+  <rect x="80" y="72" width="56" height="56" rx="12" fill="#2563eb" filter="url(#glow)"/>
+  <text x="108" y="100" dominant-baseline="central" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-weight="800" font-size="22" fill="white">TD</text>
+
+  <!-- Status badge -->
+  <rect x="80" y="155" width="290" height="36" rx="18" fill="#0f172a" stroke="#1e293b" stroke-width="1"/>
+  <circle cx="103" cy="173" r="6" fill="#fb923c"/>
+  <text x="117" y="178" font-family="Inter, Arial, sans-serif" font-size="15" fill="#cbd5e1" dominant-baseline="central">En alternance @ Horizon Software</text>
+
+  <!-- Name -->
+  <text x="80" y="280" font-family="Inter, Arial, sans-serif" font-weight="800" font-size="96" fill="white" letter-spacing="-3">Théo</text>
+  <text x="80" y="385" font-family="Inter, Arial, sans-serif" font-weight="800" font-size="96" fill="url(#nameGrad)" letter-spacing="-3">DULUARD</text>
+
+  <!-- Subtitle -->
+  <text x="80" y="440" font-family="Inter, Arial, sans-serif" font-weight="500" font-size="28" fill="#94a3b8">Analyste-Développeur Logiciel · Java &amp; React</text>
+
+  <!-- Stats pills -->
+  <rect x="80" y="490" width="155" height="48" rx="10" fill="#0f172a" stroke="#1e293b" stroke-width="1"/>
+  <text x="158" y="514" text-anchor="middle" dominant-baseline="central" font-family="Inter, Arial, sans-serif" font-weight="700" font-size="18" fill="white">2 ans</text>
+  <text x="158" y="532" text-anchor="middle" dominant-baseline="central" font-family="Inter, Arial, sans-serif" font-size="11" fill="#64748b">ALTERNANCE</text>
+
+  <rect x="248" y="490" width="155" height="48" rx="10" fill="#0f172a" stroke="#1e293b" stroke-width="1"/>
+  <text x="325" y="514" text-anchor="middle" dominant-baseline="central" font-family="Inter, Arial, sans-serif" font-weight="700" font-size="18" fill="white">Bac+5</text>
+  <text x="325" y="532" text-anchor="middle" dominant-baseline="central" font-family="Inter, Arial, sans-serif" font-size="11" fill="#64748b">INGÉNIERIE LOGICIELLE</text>
+
+  <rect x="416" y="490" width="155" height="48" rx="10" fill="#0f172a" stroke="#1e293b" stroke-width="1"/>
+  <text x="493" y="514" text-anchor="middle" dominant-baseline="central" font-family="Inter, Arial, sans-serif" font-weight="700" font-size="18" fill="#60a5fa">Java · JS</text>
+  <text x="493" y="532" text-anchor="middle" dominant-baseline="central" font-family="Inter, Arial, sans-serif" font-size="11" fill="#64748b">BACKEND</text>
+
+  <rect x="584" y="490" width="155" height="48" rx="10" fill="#0f172a" stroke="#1e293b" stroke-width="1"/>
+  <text x="661" y="514" text-anchor="middle" dominant-baseline="central" font-family="Inter, Arial, sans-serif" font-weight="700" font-size="18" fill="#22d3ee">React</text>
+  <text x="661" y="532" text-anchor="middle" dominant-baseline="central" font-family="Inter, Arial, sans-serif" font-size="11" fill="#64748b">FRONTEND</text>
+
+  <!-- Right: URL -->
+  <text x="1120" y="555" text-anchor="end" font-family="Inter, Arial, sans-serif" font-size="16" fill="#475569">theo-duluard.github.io/portfolio</text>
+</svg>

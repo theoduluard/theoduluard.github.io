@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720">
+  <rect width="1280" height="720" fill="#0f172a"/>
+  <!-- Subtle grid -->
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1e293b" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1280" height="720" fill="url(#grid)"/>
+  <!-- Glow -->
+  <ellipse cx="640" cy="360" rx="400" ry="250" fill="#f97316" opacity="0.04"/>
+  <!-- Window chrome -->
+  <rect x="240" y="160" width="800" height="400" rx="12" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+  <rect x="240" y="160" width="800" height="44" rx="12" fill="#0f172a"/>
+  <rect x="240" y="192" width="800" height="12" fill="#0f172a"/>
+  <circle cx="272" cy="182" r="7" fill="#ef4444" opacity="0.8"/>
+  <circle cx="298" cy="182" r="7" fill="#eab308" opacity="0.8"/>
+  <circle cx="324" cy="182" r="7" fill="#22c55e" opacity="0.8"/>
+  <text x="640" y="185" dominant-baseline="central" text-anchor="middle" font-family="monospace" font-size="13" fill="#475569">JacoBhashi-1.8.1-SNAPSHOT.jar</text>
+  <!-- App content placeholder -->
+  <rect x="264" y="220" width="752" height="324" fill="#020617" rx="4"/>
+  <!-- Play button -->
+  <circle cx="640" cy="382" r="52" fill="#f97316" opacity="0.15"/>
+  <circle cx="640" cy="382" r="52" fill="none" stroke="#f97316" stroke-width="2" opacity="0.4"/>
+  <polygon points="625,358 672,382 625,406" fill="#f97316" opacity="0.7"/>
+  <!-- Title below -->
+  <text x="640" y="610" dominant-baseline="central" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-weight="700" font-size="28" fill="#e2e8f0">JacoBhashi</text>
+  <text x="640" y="648" dominant-baseline="central" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="16" fill="#64748b">Java · JavaFX · Spring Boot — Puzzle Hashi</text>
+</svg>

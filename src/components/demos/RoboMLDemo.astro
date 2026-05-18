@@ -1,0 +1,173 @@
+---
+// Démo RoboML : éditeur DSL + simulateur robot animé
+interface Props { lang?: string; }
+const { lang = 'fr' } = Astro.props;
+const label = lang === 'en' ? 'RoboML — live simulation' : 'RoboML — simulation en direct';
+---
+
+<div class="w-full flex flex-col gap-3 select-none">
+
+  <!-- Header -->
+  <p class="text-[10px] uppercase tracking-widest text-slate-500 font-mono">{label}</p>
+
+  <div class="flex gap-3 items-start">
+
+    <!-- Code panel -->
+    <div class="flex-1 bg-[#0d1117] border border-slate-800 rounded-xl overflow-hidden font-mono text-xs shadow-lg">
+      <div class="bg-slate-900 px-3 py-2 border-b border-slate-800 flex items-center gap-2">
+        <span class="text-[10px] text-slate-500">explore.rml</span>
+        <span id="robo-running" class="ml-auto text-[10px] text-cyan-400 animate-pulse hidden">● running</span>
+      </div>
+      <div class="p-3 space-y-0.5">
+        {[
+          { id: 0, html: '<span class="text-cyan-400">fn</span> <span class="text-yellow-300">explore</span>() {' },
+          { id: 1, html: '&nbsp;&nbsp;<span class="text-purple-400">Forward</span>(<span class="text-orange-300">50</span> <span class="text-slate-500">cm</span>)' },
+          { id: 2, html: '&nbsp;&nbsp;<span class="text-purple-400">Rotation</span>(<span class="text-orange-300">90</span> <span class="text-slate-500">deg</span>)' },
+          { id: 3, html: '&nbsp;&nbsp;<span class="text-blue-400">if</span> <span class="text-green-300">Distance</span>() &lt; <span class="text-orange-300">20</span> {' },
+          { id: 4, html: '&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-purple-400">Backward</span>(<span class="text-orange-300">30</span> <span class="text-slate-500">cm</span>)' },
+          { id: 5, html: '&nbsp;&nbsp;}' },
+          { id: 6, html: '}' },
+        ].map(l => (
+          <div id={`robo-line-${l.id}`} class="robo-line px-1.5 py-0.5 rounded transition-colors duration-200 text-slate-400" set:html={l.html} />
+        ))}
+      </div>
+    </div>
+
+    <!-- Grid simulator -->
+    <div class="shrink-0 flex flex-col items-center gap-2">
+      <div class="bg-[#0d1117] border border-slate-800 rounded-xl p-3 shadow-lg">
+        <canvas id="robo-canvas" width="140" height="140" class="block rounded"></canvas>
+      </div>
+      <div id="robo-log" class="text-[10px] font-mono text-cyan-400 h-4 text-center"></div>
+    </div>
+
+  </div>
+
+  <!-- Badges -->
+  <div class="flex gap-2 flex-wrap text-[10px] font-mono">
+    {(lang === 'en'
+      ? ['Ecore metamodel', 'Langium grammar', 'P5.js simulator', 'Arduino compiler']
+      : ['Métamodèle Ecore', 'Grammaire Langium', 'Simulateur P5.js', 'Compilateur Arduino']
+    ).map(b => (
+      <span class="bg-cyan-900/30 text-cyan-400 border border-cyan-800/40 px-2 py-0.5 rounded-full">{b}</span>
+    ))}
+  </div>
+</div>
+
+<script>
+  // ─── Robot simulator ───
+  const CELL = 14;   // px per cell
+  const COLS = 10;
+  const ROWS = 10;
+  const OBSTACLE = { col: 6, row: 4 }; // simulated obstacle
+
+  // Steps: each step has a line to highlight, a log message, and a move fn
+  type Step = { line: number; log: string; move: (s: State) => State };
+  type State = { col: number; row: number; angleDeg: number };
+
+  const steps: Step[] = [
+    { line: 1, log: 'Forward 50 cm',  move: s => ({ ...s, row: Math.max(0, s.row - 3) }) },
+    { line: 2, log: 'Rotation +90°',  move: s => ({ ...s, angleDeg: s.angleDeg + 90 }) },
+    { line: 3, log: 'Distance() = 18 < 20 ✓', move: s => s },
+    { line: 4, log: 'Backward 30 cm', move: s => ({ ...s, col: Math.max(0, s.col - 2) }) },
+  ];
+
+  function drawGrid(ctx: CanvasRenderingContext2D, state: State) {
+    ctx.clearRect(0, 0, COLS * CELL, ROWS * CELL);
+
+    // Background
+    ctx.fillStyle = '#0d1117';
+    ctx.fillRect(0, 0, COLS * CELL, ROWS * CELL);
+
+    // Grid lines
+    ctx.strokeStyle = '#1e293b';
+    ctx.lineWidth = 0.5;
+    for (let c = 0; c <= COLS; c++) {
+      ctx.beginPath(); ctx.moveTo(c * CELL, 0); ctx.lineTo(c * CELL, ROWS * CELL); ctx.stroke();
+    }
+    for (let r = 0; r <= ROWS; r++) {
+      ctx.beginPath(); ctx.moveTo(0, r * CELL); ctx.lineTo(COLS * CELL, r * CELL); ctx.stroke();
+    }
+
+    // Obstacle
+    ctx.fillStyle = '#ef4444';
+    ctx.globalAlpha = 0.7;
+    ctx.fillRect(OBSTACLE.col * CELL + 2, OBSTACLE.row * CELL + 2, CELL - 4, CELL - 4);
+    ctx.globalAlpha = 1;
+
+    // Robot (small triangle pointing in direction)
+    const cx = state.col * CELL + CELL / 2;
+    const cy = state.row * CELL + CELL / 2;
+    const rad = state.angleDeg * Math.PI / 180;
+    const r = CELL * 0.38;
+
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.rotate(rad);
+    ctx.beginPath();
+    ctx.moveTo(0, -r);
+    ctx.lineTo(r * 0.65, r * 0.7);
+    ctx.lineTo(-r * 0.65, r * 0.7);
+    ctx.closePath();
+    ctx.fillStyle = '#22d3ee';
+    ctx.shadowColor = '#22d3ee';
+    ctx.shadowBlur = 6;
+    ctx.fill();
+    ctx.restore();
+  }
+
+  function highlightLine(idx: number | null) {
+    document.querySelectorAll('.robo-line').forEach((el, i) => {
+      el.classList.toggle('bg-cyan-900/40', i === idx);
+      el.classList.toggle('text-slate-200', i === idx);
+      el.classList.toggle('text-slate-400', i !== idx);
+    });
+  }
+
+  function setLog(msg: string) {
+    const el = document.getElementById('robo-log');
+    if (el) el.textContent = msg;
+  }
+
+  document.addEventListener('astro:page-load', () => {
+    const canvas = document.getElementById('robo-canvas') as HTMLCanvasElement | null;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    let state: State = { col: 3, row: 7, angleDeg: 0 };
+    let stepIdx = 0;
+
+    drawGrid(ctx, state);
+    highlightLine(null);
+
+    const runningEl = document.getElementById('robo-running');
+
+    function runStep() {
+      if (runningEl) runningEl.classList.remove('hidden');
+      const s = steps[stepIdx % steps.length];
+      highlightLine(s.line);
+      setLog(s.log);
+      state = s.move(state);
+      drawGrid(ctx!, state);
+      stepIdx++;
+
+      if (stepIdx >= steps.length) {
+        // Pause then restart
+        setTimeout(() => {
+          if (runningEl) runningEl.classList.add('hidden');
+          state = { col: 3, row: 7, angleDeg: 0 };
+          stepIdx = 0;
+          drawGrid(ctx!, state);
+          highlightLine(null);
+          setLog('');
+          setTimeout(runStep, 1200);
+        }, 1200);
+      } else {
+        setTimeout(runStep, 1100);
+      }
+    }
+
+    setTimeout(runStep, 800);
+  });
+</script>

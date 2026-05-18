@@ -1,0 +1,135 @@
+---
+// Démo Jibrax API : simulateur de requêtes animé — identique FR/EN
+---
+<div class="w-full font-mono text-xs select-none">
+
+  <!-- URL bar -->
+  <div class="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden shadow-xl">
+    <div class="bg-[#0d1117] px-4 py-2.5 flex items-center gap-3 border-b border-slate-800">
+      <div class="flex gap-1.5 shrink-0">
+        <div class="w-2.5 h-2.5 rounded-full bg-red-500/70"></div>
+        <div class="w-2.5 h-2.5 rounded-full bg-yellow-500/70"></div>
+        <div class="w-2.5 h-2.5 rounded-full bg-green-500/70"></div>
+      </div>
+      <div id="jibrax-url" class="flex-1 bg-slate-800/60 rounded px-2.5 py-1 text-[11px] text-slate-400 truncate transition-all duration-300">
+        GET /api/users/active
+      </div>
+      <div id="jibrax-status" class="shrink-0 text-[10px] font-bold px-2 py-0.5 rounded bg-green-900/50 text-green-400">200</div>
+    </div>
+
+    <!-- Response body -->
+    <div class="p-4 bg-[#0d1117] text-slate-300 min-h-[220px] overflow-hidden relative">
+      <!-- Request 0: GET /users/active -->
+      <div id="jibrax-res-0" class="jibrax-res absolute inset-4 transition-all duration-500 opacity-100 translate-y-0">
+        <span class="text-blue-400">&#123;</span><br/>
+        &nbsp;&nbsp;<span class="text-sky-300">"count"</span>: <span class="text-purple-400">3</span>,<br/>
+        &nbsp;&nbsp;<span class="text-sky-300">"users"</span>: [<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-blue-400">&#123;</span> <span class="text-sky-300">"id"</span>: <span class="text-purple-400">1</span>, <span class="text-sky-300">"name"</span>: <span class="text-green-300">"t.duluard"</span>, <span class="text-sky-300">"role"</span>: <span class="text-yellow-300">"ADMIN"</span> <span class="text-blue-400">}</span>,<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-blue-400">&#123;</span> <span class="text-sky-300">"id"</span>: <span class="text-purple-400">2</span>, <span class="text-sky-300">"name"</span>: <span class="text-green-300">"a.martin"</span>, <span class="text-sky-300">"role"</span>: <span class="text-yellow-300">"DEV"</span> <span class="text-blue-400">}</span>,<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-blue-400">&#123;</span> <span class="text-sky-300">"id"</span>: <span class="text-purple-400">3</span>, <span class="text-sky-300">"name"</span>: <span class="text-green-300">"l.chen"</span>, <span class="text-sky-300">"role"</span>: <span class="text-yellow-300">"DEV"</span> <span class="text-blue-400">}</span><br/>
+        &nbsp;&nbsp;]<br/>
+        <span class="text-blue-400">}</span>
+      </div>
+
+      <!-- Request 1: GET /teams/7/projects -->
+      <div id="jibrax-res-1" class="jibrax-res absolute inset-4 transition-all duration-500 opacity-0 translate-y-4">
+        <span class="text-blue-400">&#123;</span><br/>
+        &nbsp;&nbsp;<span class="text-sky-300">"team"</span>: <span class="text-green-300">"Backend Squad"</span>,<br/>
+        &nbsp;&nbsp;<span class="text-sky-300">"projects"</span>: [<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-blue-400">&#123;</span> <span class="text-sky-300">"id"</span>: <span class="text-purple-400">1042</span>, <span class="text-sky-300">"name"</span>: <span class="text-green-300">"Jibrax Migration"</span>, <span class="text-sky-300">"status"</span>: <span class="text-orange-300">"IN_PROGRESS"</span> <span class="text-blue-400">}</span>,<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-blue-400">&#123;</span> <span class="text-sky-300">"id"</span>: <span class="text-purple-400">1043</span>, <span class="text-sky-300">"name"</span>: <span class="text-green-300">"Auth Refactor"</span>, <span class="text-sky-300">"status"</span>: <span class="text-green-300">"DONE"</span> <span class="text-blue-400">}</span><br/>
+        &nbsp;&nbsp;]<br/>
+        <span class="text-blue-400">}</span>
+      </div>
+
+      <!-- Request 2: GET /tasks?assignee=1&status=open -->
+      <div id="jibrax-res-2" class="jibrax-res absolute inset-4 transition-all duration-500 opacity-0 translate-y-4">
+        <span class="text-blue-400">&#123;</span><br/>
+        &nbsp;&nbsp;<span class="text-sky-300">"open_tasks"</span>: <span class="text-purple-400">4</span>,<br/>
+        &nbsp;&nbsp;<span class="text-sky-300">"items"</span>: [<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-blue-400">&#123;</span> <span class="text-sky-300">"id"</span>: <span class="text-purple-400">201</span>, <span class="text-sky-300">"title"</span>: <span class="text-green-300">"Fix N+1 queries"</span>, <span class="text-sky-300">"priority"</span>: <span class="text-red-400">"HIGH"</span> <span class="text-blue-400">}</span>,<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-blue-400">&#123;</span> <span class="text-sky-300">"id"</span>: <span class="text-purple-400">202</span>, <span class="text-sky-300">"title"</span>: <span class="text-green-300">"Add pagination"</span>, <span class="text-sky-300">"priority"</span>: <span class="text-yellow-300">"MED"</span> <span class="text-blue-400">}</span>,<br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-blue-400">&#123;</span> <span class="text-sky-300">"id"</span>: <span class="text-purple-400">203</span>, <span class="text-sky-300">"title"</span>: <span class="text-green-300">"JWT refresh flow"</span>, <span class="text-sky-300">"priority"</span>: <span class="text-red-400">"HIGH"</span> <span class="text-blue-400">}</span><br/>
+        &nbsp;&nbsp;]<br/>
+        <span class="text-blue-400">}</span>
+      </div>
+
+      <!-- Request 3: POST /tasks -->
+      <div id="jibrax-res-3" class="jibrax-res absolute inset-4 transition-all duration-500 opacity-0 translate-y-4">
+        <span class="text-slate-500">// POST /api/tasks → 201 Created</span><br/>
+        <span class="text-blue-400">&#123;</span><br/>
+        &nbsp;&nbsp;<span class="text-sky-300">"id"</span>: <span class="text-purple-400">204</span>,<br/>
+        &nbsp;&nbsp;<span class="text-sky-300">"title"</span>: <span class="text-green-300">"Write unit tests"</span>,<br/>
+        &nbsp;&nbsp;<span class="text-sky-300">"assignee"</span>: <span class="text-green-300">"t.duluard"</span>,<br/>
+        &nbsp;&nbsp;<span class="text-sky-300">"project_id"</span>: <span class="text-purple-400">1042</span>,<br/>
+        &nbsp;&nbsp;<span class="text-sky-300">"created_at"</span>: <span class="text-yellow-300">"2025-05-18T09:41:00Z"</span><br/>
+        <span class="text-blue-400">}</span>
+      </div>
+    </div>
+
+    <!-- Step indicators -->
+    <div class="bg-[#0d1117] border-t border-slate-800 px-4 py-2.5 flex items-center gap-2">
+      <div id="jibrax-dot-0" class="jibrax-dot w-1.5 h-1.5 rounded-full bg-blue-400 transition-colors duration-300"></div>
+      <div id="jibrax-dot-1" class="jibrax-dot w-1.5 h-1.5 rounded-full bg-slate-700 transition-colors duration-300"></div>
+      <div id="jibrax-dot-2" class="jibrax-dot w-1.5 h-1.5 rounded-full bg-slate-700 transition-colors duration-300"></div>
+      <div id="jibrax-dot-3" class="jibrax-dot w-1.5 h-1.5 rounded-full bg-slate-700 transition-colors duration-300"></div>
+      <span id="jibrax-label" class="ml-auto text-[10px] text-slate-600">cycling endpoints…</span>
+    </div>
+  </div>
+</div>
+
+<script>
+  const steps = [
+    { method: 'GET',  url: '/api/users/active',             status: '200', statusClass: 'bg-green-900/50 text-green-400'  },
+    { method: 'GET',  url: '/api/teams/7/projects',         status: '200', statusClass: 'bg-green-900/50 text-green-400'  },
+    { method: 'GET',  url: '/api/tasks?assignee=1&status=open', status: '200', statusClass: 'bg-green-900/50 text-green-400' },
+    { method: 'POST', url: '/api/tasks',                    status: '201', statusClass: 'bg-blue-900/50 text-blue-400'    },
+  ];
+
+  let current = 0;
+
+  function jibraxStep(next: number) {
+    const prev = current;
+    current = next;
+
+    // Hide previous
+    const prevRes = document.getElementById(`jibrax-res-${prev}`);
+    if (prevRes) {
+      prevRes.classList.remove('opacity-100', 'translate-y-0');
+      prevRes.classList.add('opacity-0', '-translate-y-4');
+    }
+
+    // Update URL bar
+    const s = steps[current];
+    const urlEl    = document.getElementById('jibrax-url');
+    const statusEl = document.getElementById('jibrax-status');
+    if (urlEl)    urlEl.textContent = `${s.method} ${s.url}`;
+    if (statusEl) { statusEl.textContent = s.status; statusEl.className = `shrink-0 text-[10px] font-bold px-2 py-0.5 rounded ${s.statusClass}`; }
+
+    // Show next
+    setTimeout(() => {
+      const nextRes = document.getElementById(`jibrax-res-${current}`);
+      if (nextRes) {
+        nextRes.classList.remove('opacity-0', 'translate-y-4', '-translate-y-4');
+        nextRes.classList.add('opacity-100', 'translate-y-0');
+      }
+    }, 100);
+
+    // Dots
+    document.querySelectorAll('.jibrax-dot').forEach((d, i) => {
+      d.classList.toggle('bg-blue-400', i === current);
+      d.classList.toggle('bg-slate-700', i !== current);
+    });
+  }
+
+  // Auto-cycle
+  document.addEventListener('astro:page-load', () => {
+    current = 0;
+    jibraxStep(0);
+    let idx = 0;
+    setInterval(() => {
+      idx = (idx + 1) % steps.length;
+      jibraxStep(idx);
+    }, 4500);
+  });
+</script>

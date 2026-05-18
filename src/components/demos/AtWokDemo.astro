@@ -1,0 +1,177 @@
+---
+// Démo At Wok : dashboard WebSocket temps réel — traduit selon lang
+interface Props {
+  lang?: string;
+}
+const { lang = 'fr' } = Astro.props;
+
+const t = lang === 'en' ? {
+  title:        '🍜 At Wok',
+  startBtn:     '▶ Start service',
+  serverLabel:  'Server:',
+  chefWaiting:  '👨‍🍳 Chef waiting',
+  diningRoom:   '🪑 Dining room (Customers)',
+  emptyRoom:    'Empty room...',
+  terminal:     '📋 Terminal (WebSocket)',
+  waitingConn:  'Waiting for Java server connection...',
+  connected:    '🔌 Connected to Java Spring Boot server!',
+  connError:    '❌ Could not reach the Java server.',
+  clientLabel:  'Client',
+  enter:        '🪑 Seated',
+  choosing:     '🥗 At buffet',
+  waiting:      '⏱️ Waiting for chef',
+  cooking:      '🔥 Cooking (client',
+  eating:       '😋 Eating',
+  leaving:      '🚶‍♂️ Leaving',
+} : {
+  title:        '🍜 At Wok',
+  startBtn:     '▶ Lancer le service',
+  serverLabel:  'Serveur:',
+  chefWaiting:  '👨‍🍳 Chef en attente',
+  diningRoom:   '🪑 Salle (Clients)',
+  emptyRoom:    'Salle vide...',
+  terminal:     '📋 Terminal (WebSocket)',
+  waitingConn:  'En attente de connexion au serveur Java...',
+  connected:    '🔌 Connecté au serveur Java Spring Boot !',
+  connError:    '❌ Impossible de joindre le serveur Java.',
+  clientLabel:  'Client',
+  enter:        '🪑 S\'installe',
+  choosing:     '🥗 Au Buffet',
+  waiting:      '⏱️ Attend le chef',
+  cooking:      '🔥 Cuisine (client',
+  eating:       '😋 Mange',
+  leaving:      '🚶‍♂️ Quitte le restaurant',
+};
+---
+
+<div class="w-full rounded-xl overflow-hidden shadow-[0_0_30px_rgba(34,197,94,0.15)] border border-slate-700">
+  <div class="bg-slate-800 px-3 py-2 flex items-center border-b border-slate-700">
+    <div class="flex gap-1.5">
+      <div class="w-3 h-3 rounded-full bg-red-500"></div>
+      <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+      <div class="w-3 h-3 rounded-full bg-green-500"></div>
+    </div>
+  </div>
+
+  <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 shadow-2xl max-w-3xl mx-auto font-sans text-slate-200">
+    <div class="flex justify-between items-center mb-4 border-b border-slate-800 pb-3">
+      <h2 class="text-lg font-bold text-white flex items-center gap-2">{t.title}</h2>
+      <div class="flex gap-3 items-center text-xs">
+        <button id="start-btn" class="bg-blue-600 hover:bg-blue-500 text-white px-3 py-1.5 rounded-md font-bold transition-all shadow-[0_0_10px_rgba(37,99,235,0.4)] disabled:opacity-50 disabled:cursor-not-allowed">
+          {t.startBtn}
+        </button>
+        <span class="bg-slate-900 px-2 py-1 rounded-md border border-slate-700 flex items-center gap-2">
+          {t.serverLabel} <div id="server-status" class="w-2 h-2 rounded-full bg-red-500"></div>
+        </span>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="flex flex-col gap-3 h-62.5">
+        <div class="bg-slate-900 p-2 rounded-lg border border-slate-800 flex flex-col items-center justify-center shrink-0">
+          <div id="wok-chief" class="w-full text-center px-2 py-1.5 rounded bg-slate-800 text-slate-400 border border-slate-700 text-xs font-medium transition-all duration-300 truncate">
+            {t.chefWaiting}
+          </div>
+        </div>
+        <div class="bg-slate-900 p-3 rounded-lg border border-slate-800 flex-1 flex flex-col overflow-hidden">
+          <h3 class="text-sm font-semibold mb-2">{t.diningRoom}</h3>
+          <div id="wok-tables" class="space-y-1.5 flex-1 overflow-y-auto mini-scrollbar pr-1">
+            <p id="empty-room" class="text-slate-500 text-xs text-center italic mt-4">{t.emptyRoom}</p>
+          </div>
+        </div>
+      </div>
+      <div class="bg-slate-900 p-3 rounded-lg border border-slate-800 flex flex-col h-62.5">
+        <h3 class="text-sm font-semibold mb-2">{t.terminal}</h3>
+        <div id="wok-logs" class="flex-1 bg-black rounded p-2 overflow-y-auto mini-scrollbar text-[10px] font-mono space-y-1">
+          <div class="text-slate-500 italic">{t.waitingConn}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@stomp/stompjs@7.0.0/bundles/stomp.umd.min.js" is:inline></script>
+<script define:vars={{ t }}>
+  document.addEventListener("DOMContentLoaded", () => {
+    const client = new StompJs.Client({
+      brokerURL: 'wss://atwok.onrender.com/ws-restaurant',
+      reconnectDelay: 5000,
+      onConnect: () => {
+        document.getElementById('server-status').classList.replace('bg-red-500', 'bg-green-500');
+        log(t.connected, "text-green-400 font-bold");
+        document.getElementById('start-btn').disabled = false;
+        client.subscribe('/topic/logs', (message) => {
+          handleJavaEvent(JSON.parse(message.body));
+        });
+      },
+      onWebSocketError: () => {
+        document.getElementById('server-status').classList.replace('bg-green-500', 'bg-red-500');
+        log(t.connError, "text-red-500");
+      }
+    });
+
+    document.getElementById('start-btn').disabled = true;
+    client.activate();
+
+    document.getElementById('start-btn').addEventListener('click', () => {
+      if (client.connected) {
+        client.publish({ destination: '/app/start', body: "" });
+        document.getElementById('start-btn').disabled = true;
+      }
+    });
+
+    const log = (msg, color = 'text-slate-300') => {
+      const logsBox = document.getElementById('wok-logs');
+      const entry = document.createElement('div');
+      entry.className = color;
+      entry.textContent = `> ${msg}`;
+      logsBox.appendChild(entry);
+      logsBox.scrollTop = logsBox.scrollHeight;
+    };
+
+    const updateClientStatus = (id, status, colorClass) => {
+      let row = document.getElementById(`client-row-${id}`);
+      if (!row) {
+        document.getElementById('empty-room')?.style.setProperty('display', 'none');
+        const tablesBox = document.getElementById('wok-tables');
+        row = document.createElement('div');
+        row.id = `client-row-${id}`;
+        row.className = "flex items-center justify-between bg-slate-800 px-2 py-1.5 rounded";
+        row.innerHTML = `<span class="font-bold text-slate-300 text-[11px]">${t.clientLabel} ${id}</span> <span class="status text-[10px]"></span>`;
+        tablesBox.appendChild(row);
+      }
+      const statusSpan = row.querySelector('.status');
+      statusSpan.className = `status text-[10px] ${colorClass}`;
+      statusSpan.textContent = status;
+    };
+
+    const handleJavaEvent = (data) => {
+      if (data.action !== "EMP_ACTION" && data.action !== "BUFFET_TAKE" && data.action !== "BUFFET_REFILL") {
+        log(data.type === "client" ? `[${t.clientLabel} ${data.clientId}] ${data.message}` : data.message);
+      }
+      switch (data.action) {
+        case "ENTER":         updateClientStatus(data.clientId, t.enter,    "text-cyan-400"); break;
+        case "CHOOSING":      updateClientStatus(data.clientId, t.choosing, "text-yellow-400"); break;
+        case "WAITING":       updateClientStatus(data.clientId, t.waiting,  "text-yellow-400"); break;
+        case "CHIEF_COOKING": {
+          updateClientStatus(data.clientId, `👨‍🍳 Wok`, "text-purple-400");
+          const badge = document.getElementById('wok-chief');
+          badge.className = "w-full text-center px-2 py-1.5 rounded bg-yellow-900 text-yellow-400 border border-yellow-700 text-xs font-bold";
+          badge.innerHTML = `${t.cooking} ${data.clientId})`;
+          break;
+        }
+        case "CHIEF_DONE": {
+          const badge = document.getElementById('wok-chief');
+          badge.className = "w-full text-center px-2 py-1.5 rounded bg-slate-800 text-slate-400 border border-slate-700 text-xs font-medium";
+          badge.innerHTML = t.chefWaiting;
+          break;
+        }
+        case "EATING":  updateClientStatus(data.clientId, t.eating,  "text-green-400 font-bold"); break;
+        case "LEAVING": updateClientStatus(data.clientId, t.leaving, "text-red-400"); break;
+        case "INFO":
+          if (data.message.includes("SERVICE TERMINÉ")) document.getElementById('start-btn').disabled = false;
+          break;
+      }
+    };
+  });
+</script>

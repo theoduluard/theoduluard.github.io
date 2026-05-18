@@ -1,0 +1,137 @@
+@import "tailwindcss";
+
+::selection {
+  background-color: #3b82f6;
+  color: white;
+}
+
+/* ─── Scroll Reveal ─── */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal-left.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+.reveal-right {
+  opacity: 0;
+  transform: translateX(40px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal-right.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Stagger delays */
+.delay-1 { transition-delay: 100ms; }
+.delay-2 { transition-delay: 200ms; }
+.delay-3 { transition-delay: 300ms; }
+.delay-4 { transition-delay: 400ms; }
+.delay-5 { transition-delay: 500ms; }
+.delay-6 { transition-delay: 600ms; }
+
+/* ─── Gradient text animation ─── */
+.text-gradient-animated {
+  background: linear-gradient(90deg, #3b82f6, #22d3ee, #3b82f6);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: gradient-x 5s linear infinite;
+}
+
+@keyframes gradient-x {
+  0%   { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+
+/* ─── Blob animation ─── */
+@keyframes blob {
+  0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; transform: scale(1); }
+  33%       { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; transform: scale(1.05); }
+  66%       { border-radius: 50% 30% 50% 70% / 30% 50% 70% 50%; transform: scale(0.97); }
+}
+.animate-blob {
+  animation: blob 10s ease-in-out infinite;
+}
+.animation-delay-2000 { animation-delay: 2s; }
+.animation-delay-4000 { animation-delay: 4s; }
+
+/* ─── Float animation ─── */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-10px); }
+}
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* ─── Modal fade-in ─── */
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in-up {
+  animation: fade-in-up 0.4s ease forwards;
+}
+
+/* ─── Hero entry animation (pas d'IntersectionObserver — visible dès le load) ─── */
+.hero-reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  animation: hero-in 0.7s ease forwards;
+}
+@keyframes hero-in {
+  to { opacity: 1; transform: translateY(0); }
+}
+.hero-delay-1 { animation-delay: 80ms;  }
+.hero-delay-2 { animation-delay: 180ms; }
+.hero-delay-3 { animation-delay: 300ms; }
+.hero-delay-4 { animation-delay: 420ms; }
+.hero-delay-5 { animation-delay: 560ms; }
+.hero-delay-6 { animation-delay: 700ms; }
+
+/* ─── Active nav section indicator ─── */
+.nav-link-active {
+  color: #60a5fa; /* blue-400 */
+}
+
+/* ─── Scrollbar slim ─── */
+.mini-scrollbar::-webkit-scrollbar { width: 4px; }
+.mini-scrollbar::-webkit-scrollbar-track { background: transparent; }
+.mini-scrollbar::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
+
+/* ─── prefers-reduced-motion ─── */
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .reveal-left, .reveal-right {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .delay-1, .delay-2, .delay-3, .delay-4, .delay-5, .delay-6 {
+    transition-delay: 0ms;
+  }
+  .animate-blob, .animate-float, .text-gradient-animated, .animate-fade-in-up, .hero-reveal {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  .text-gradient-animated {
+    color: #3b82f6;
+    background: none;
+    -webkit-background-clip: unset;
+    background-clip: unset;
+  }
+}

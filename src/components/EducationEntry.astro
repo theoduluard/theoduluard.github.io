@@ -1,0 +1,54 @@
+---
+interface Tech {
+  label: string;
+  svg: string;
+}
+
+interface Props {
+  title: string;
+  school: string;
+  period: string;
+  description: string;
+  concepts: string[];
+  conceptsLabel: string;
+  techsLabel: string;
+  techs: Tech[];
+  revealClass?: string;
+}
+
+const { title, school, period, description, concepts, conceptsLabel, techsLabel, techs, revealClass = 'reveal' } = Astro.props;
+---
+
+<div class={`relative ${revealClass}`}>
+  <div class="absolute -left-10.25 top-1.5 w-4 h-4 rounded-full bg-blue-500 shadow-[0_0_15px_rgba(59,130,246,0.6)] ring-4 ring-slate-950"></div>
+
+  <h3 class="text-2xl font-bold text-slate-200">{title}</h3>
+  <p class="text-blue-500 font-medium mt-1">{school} • {period}</p>
+  <p class="mt-4 text-slate-400 leading-relaxed max-w-3xl">{description}</p>
+
+  <div class="mt-6">
+    <h4 class="text-sm font-semibold text-slate-400 mb-3 flex items-center gap-2 uppercase tracking-wider">
+      <svg aria-hidden="true" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>
+      {conceptsLabel}
+    </h4>
+    <div class="flex flex-wrap gap-2">
+      {concepts.map((concept) => (
+        <span class="bg-slate-900 border border-slate-800 text-slate-300 text-xs px-3 py-1.5 rounded-full whitespace-nowrap">{concept}</span>
+      ))}
+    </div>
+  </div>
+
+  <div class="mt-5">
+    <h4 class="text-sm font-semibold text-blue-400 mb-3 flex items-center gap-2 uppercase tracking-wider">
+      <svg aria-hidden="true" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /></svg>
+      {techsLabel}
+    </h4>
+    <div class="flex flex-wrap gap-2">
+      {techs.map((tech) => (
+        <span class="flex items-center gap-1.5 bg-blue-950/30 border border-blue-900/50 text-blue-200 text-xs px-3 py-1.5 rounded-full whitespace-nowrap">
+          <Fragment set:html={tech.svg} /> {tech.label}
+        </span>
+      ))}
+    </div>
+  </div>
+</div>

@@ -4,6 +4,10 @@
 const pathname = Astro.url.pathname;
 const isEn = pathname.startsWith('/en');
 
+// Garde la page courante en changeant uniquement le préfixe de langue
+const frUrl = pathname.replace(/^\/(en|fr)/, '/fr');
+const enUrl = pathname.replace(/^\/(en|fr)/, '/en');
+
 const navLinks = {
     fr: [
         { label: 'Cursus',      href: '/fr/#cursus' },
@@ -52,8 +56,8 @@ const currentLinks = isEn ? navLinks.en : navLinks.fr;
         <!-- Col 3 — Lang switcher (desktop + mobile), aligné à droite symétrique au TD -->
         <div class="flex justify-end items-center">
             <div class="flex items-center bg-slate-900/90 border border-slate-700 rounded-full p-1 backdrop-blur-sm shadow-lg">
-                <a href="/fr/" class={`px-3 py-1.5 text-xs font-bold rounded-full transition-all ${!isEn ? 'bg-blue-600 text-white shadow-[0_0_10px_rgba(59,130,246,0.5)]' : 'text-slate-400 hover:text-slate-200'}`}>FR</a>
-                <a href="/en/" class={`px-3 py-1.5 text-xs font-bold rounded-full transition-all ${isEn ? 'bg-blue-600 text-white shadow-[0_0_10px_rgba(59,130,246,0.5)]' : 'text-slate-400 hover:text-slate-200'}`}>EN</a>
+                <a href={frUrl} class={`px-3 py-1.5 text-xs font-bold rounded-full transition-all ${!isEn ? 'bg-blue-600 text-white shadow-[0_0_10px_rgba(59,130,246,0.5)]' : 'text-slate-400 hover:text-slate-200'}`}>FR</a>
+                <a href={enUrl} class={`px-3 py-1.5 text-xs font-bold rounded-full transition-all ${isEn ? 'bg-blue-600 text-white shadow-[0_0_10px_rgba(59,130,246,0.5)]' : 'text-slate-400 hover:text-slate-200'}`}>EN</a>
             </div>
         </div>
 

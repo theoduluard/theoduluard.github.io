@@ -67,6 +67,11 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 </html>
 
 <script>
+  import { trackVisit } from '../lib/analytics';
+  document.addEventListener('astro:page-load', () => trackVisit());
+</script>
+
+<script>
   // Scroll reveal via IntersectionObserver
   // Wrappé dans astro:page-load pour se réinitialiser après chaque ViewTransition
   function initScrollReveal() {

@@ -1,9 +1,4 @@
 ---
-interface Tech {
-  label: string;
-  svg: string;
-}
-
 interface Props {
   title: string;
   school: string;
@@ -12,7 +7,7 @@ interface Props {
   concepts: string[];
   conceptsLabel: string;
   techsLabel: string;
-  techs: Tech[];
+  techs: string[];
   revealClass?: string;
 }
 
@@ -45,8 +40,8 @@ const { title, school, period, description, concepts, conceptsLabel, techsLabel,
     </h4>
     <div class="flex flex-wrap gap-2">
       {techs.map((tech) => (
-        <span class="flex items-center gap-1.5 bg-blue-950/30 border border-blue-900/50 text-blue-200 text-xs px-3 py-1.5 rounded-full whitespace-nowrap">
-          <Fragment set:html={tech.svg} /> {tech.label}
+        <span class="bg-blue-950/30 border border-blue-900/50 text-blue-200 text-xs px-3 py-1.5 rounded-full whitespace-nowrap">
+          {tech}
         </span>
       ))}
     </div>

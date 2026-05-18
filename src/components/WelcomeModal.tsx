@@ -1,18 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
-import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, addDoc, serverTimestamp, Timestamp } from 'firebase/firestore';
-
-const firebaseConfig = {
-  apiKey:            import.meta.env.PUBLIC_FIREBASE_API_KEY,
-  authDomain:        import.meta.env.PUBLIC_FIREBASE_AUTH_DOMAIN,
-  projectId:         import.meta.env.PUBLIC_FIREBASE_PROJECT_ID,
-  storageBucket:     import.meta.env.PUBLIC_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: import.meta.env.PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
-  appId:             import.meta.env.PUBLIC_FIREBASE_APP_ID,
-};
-
-const app = initializeApp(firebaseConfig);
-const db  = getFirestore(app);
+import { db } from '../lib/firebase';
+import { collection, addDoc, serverTimestamp, Timestamp } from 'firebase/firestore';
 
 const i18n = {
   fr: {
@@ -27,7 +15,7 @@ const i18n = {
     skip:        'Passer',
     enter:       'Entrer',
     sending:     'Envoi…',
-    legal:       'En validant, vous acceptez nos',
+    legal:       'En poursuivant sur ce site, vous acceptez nos',
     legalLink:   'mentions légales',
     legalHref:   '/fr/mentions-legales',
     legalSuffix: 'relatives aux données.',
@@ -44,7 +32,7 @@ const i18n = {
     skip:        'Skip',
     enter:       'Enter',
     sending:     'Sending…',
-    legal:       'By confirming, you agree to our',
+    legal:       'By continuing on this website, you agree to our',
     legalLink:   'legal notice',
     legalHref:   '/en/mentions-legales',
     legalSuffix: 'regarding personal data.',

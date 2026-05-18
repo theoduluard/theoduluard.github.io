@@ -1,15 +1,51 @@
 ---
 // Démo Allo-Mission : maquette téléphone avec iframe — identique FR/EN
 ---
-<div class="relative w-80 h-[664px] bg-slate-900 border-8 border-slate-800 rounded-[3rem] shadow-2xl overflow-hidden">
-  <div class="absolute top-0 inset-x-0 h-6 bg-slate-800 w-32 mx-auto rounded-b-xl z-20 pointer-events-none"></div>
-  <div class="absolute top-0 left-0 origin-top-left" style="width: 375px; height: 820px; transform: scale(0.811);">
-    <iframe
-      src="https://allo-mission.netlify.app/"
-      class="w-full h-full bg-white"
-      frameborder="0"
-      loading="lazy"
-      sandbox="allow-scripts allow-same-origin allow-forms"
-    ></iframe>
+<div id="allo-phone-wrapper" class="w-full flex justify-center">
+  <div id="allo-phone" class="relative w-80 h-[664px] bg-slate-900 border-8 border-slate-800 rounded-[3rem] shadow-2xl overflow-hidden shrink-0">
+    <div class="absolute top-0 inset-x-0 h-6 bg-slate-800 w-32 mx-auto rounded-b-xl z-20 pointer-events-none"></div>
+    <div class="absolute top-0 left-0 origin-top-left" style="width: 375px; height: 820px; transform: scale(0.811);">
+      <iframe
+        src="https://allo-mission.netlify.app/"
+        class="w-full h-full bg-white"
+        frameborder="0"
+        loading="lazy"
+        sandbox="allow-scripts allow-same-origin allow-forms"
+      ></iframe>
+    </div>
   </div>
 </div>
+
+<script>
+  let ro: ResizeObserver | null = null;
+
+  function scaleAlloPhone() {
+    const wrapper = document.getElementById('allo-phone-wrapper');
+    const phone   = document.getElementById('allo-phone');
+    if (!wrapper || !phone) return;
+
+    const available  = wrapper.offsetWidth;
+    const phoneW     = 320;  // w-80
+    const phoneH     = 664;
+    const scale      = Math.min(1, available / phoneW);
+
+    phone.style.transform       = scale < 1 ? `scale(${scale})` : '';
+    phone.style.transformOrigin = 'top center';
+    // Crop wrapper height to the phone's visual footprint to avoid whitespace
+    wrapper.style.height   = scale < 1 ? `${phoneH * scale}px` : '';
+    wrapper.style.overflow = scale < 1 ? 'hidden' : '';
+  }
+
+  function init() {
+    scaleAlloPhone();
+    const wrapper = document.getElementById('allo-phone-wrapper');
+    if (!wrapper) return;
+    ro?.disconnect();
+    ro = new ResizeObserver(scaleAlloPhone);
+    ro.observe(wrapper);
+  }
+
+  document.addEventListener('astro:page-load', init);
+  // Fallback si le script s'exécute après DOMContentLoaded
+  if (document.readyState !== 'loading') scaleAlloPhone();
+</script>

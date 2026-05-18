@@ -14,6 +14,7 @@
   </div>
   <div class="relative aspect-video bg-black w-full overflow-hidden">
     <video
+      id="jacobhashi-video"
       class="w-full h-full object-contain opacity-80 group-hover/video:opacity-100 transition-opacity duration-500"
       autoplay loop muted playsinline preload="metadata"
     >
@@ -21,3 +22,34 @@
     </video>
   </div>
 </div>
+
+<script>
+  function initVideo() {
+    const video = document.getElementById('jacobhashi-video') as HTMLVideoElement | null;
+    if (!video) return;
+
+    // Force play après navigation (View Transitions ne redéclenche pas autoplay)
+    const tryPlay = () => {
+      if (video.paused) {
+        video.play().catch(() => {
+          // Autoplay bloqué par le navigateur — l'IntersectionObserver prendra le relais
+        });
+      }
+    };
+
+    tryPlay();
+
+    // Lecture dès que la vidéo entre dans le viewport
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) tryPlay();
+        });
+      },
+      { threshold: 0.1 }
+    );
+    observer.observe(video);
+  }
+
+  document.addEventListener('astro:page-load', initVideo);
+</script>

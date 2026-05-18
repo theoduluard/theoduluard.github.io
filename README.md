@@ -4,6 +4,28 @@ This repository contains the source code for my personal portfolio website, buil
 
 It features a range of interactive components and demos, from a full microservice architecture simulator to live demonstrations of DSLs and multi-threaded applications, all running directly in the browser. The project is automatically built and deployed to GitHub Pages via a CI/CD pipeline.
 
+## Live Links
+
+| Ressource | URL |
+|---|---|
+| 🌐 Portfolio (FR) | https://portfolio.theoduluard.fr/fr/ |
+| 🌐 Portfolio (EN) | https://portfolio.theoduluard.fr/en/ |
+| 📄 CV Français | https://portfolio.theoduluard.fr/cv-fr.html |
+| 📄 CV English | https://portfolio.theoduluard.fr/cv-en.html |
+| 🎬 Vidéo démo JacoBhashi | https://pub-e2b5e32f9a05474bab4391d7f3e0c8a9.r2.dev/demo-JacoBhashi.mp4 |
+
+### Démos & projets déployés
+
+| Projet | Déploiement | Code source |
+|---|---|---|
+| Jibrax API | https://jibrax-api-production.up.railway.app/swagger-ui/index.html | https://github.com/theoduluard/Jibrax-API |
+| JacoBhashi | https://github.com/theoduluard/Projet-HASHI/releases _(jar)_ | https://github.com/theoduluard/Projet-HASHI |
+| VoiceMail AI Assistant | — | https://github.com/theoduluard/LazyMail |
+| Allo-Mission | — | https://github.com/theoduluard/allo-mission |
+| RoboML | — | https://github.com/theoduluard/DSL_RoboML |
+| At Wok | — | https://github.com/theoduluard/at-wok |
+| GitLab CI/CD Pipeline | — | https://github.com/theoduluard/Gitlab-CICD-Pipeline-tutorial |
+
 ## Key Features
 
 *   **Static Site Generation:** Built with Astro for optimal performance, SEO, and a fast user experience.

@@ -132,7 +132,7 @@ export default function WelcomeModal({ lang = 'fr' }) {
 
   return (
     <div
-      className="fixed inset-0 z-100 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm"
+      className="fixed inset-0 z-100 flex items-end sm:items-center justify-center p-0 sm:p-4 bg-slate-950/80 backdrop-blur-sm"
       aria-hidden="false"
       onClick={(e) => { if (e.target === e.currentTarget) close(false); }}
     >
@@ -141,17 +141,17 @@ export default function WelcomeModal({ lang = 'fr' }) {
         role="dialog"
         aria-modal="true"
         aria-labelledby="modal-title"
-        className="bg-slate-900 border border-slate-800 rounded-2xl p-8 max-w-md w-full shadow-[0_0_40px_rgba(59,130,246,0.15)] relative animate-fade-in-up"
+        className="bg-slate-900 border border-slate-800 rounded-t-2xl sm:rounded-2xl p-5 sm:p-8 max-w-md w-full shadow-[0_0_40px_rgba(59,130,246,0.15)] relative animate-fade-in-up"
       >
 
-        <h2 id="modal-title" className="text-2xl font-bold text-slate-100 mb-2">
+        <h2 id="modal-title" className="text-xl sm:text-2xl font-bold text-slate-100 mb-1 sm:mb-2">
           {t.title}
         </h2>
-        <p className="text-slate-400 text-sm mb-6 leading-relaxed">
+        <p className="text-slate-400 text-sm mb-4 sm:mb-6 leading-relaxed">
           {t.body}
         </p>
 
-        <form className="space-y-4" onSubmit={(e) => { e.preventDefault(); close(true); }}>
+        <form className="space-y-3 sm:space-y-4" onSubmit={(e) => { e.preventDefault(); close(true); }}>
           <div>
             <label htmlFor="modal-name" className="block text-sm font-medium text-slate-300 mb-1">
               {t.nameLabel} <span className="text-slate-600">({t.optional})</span>
@@ -180,7 +180,7 @@ export default function WelcomeModal({ lang = 'fr' }) {
             />
           </div>
 
-          <div className="flex items-center pt-2 pb-1">
+          <div className="flex items-center pt-1">
             <input
               type="checkbox"
               id="modal-dontShow"
@@ -193,7 +193,7 @@ export default function WelcomeModal({ lang = 'fr' }) {
             </label>
           </div>
 
-          <div className="pt-2 flex gap-3">
+          <div className="flex gap-3">
             <button
               type="button"
               onClick={() => close(false)}
@@ -219,7 +219,7 @@ export default function WelcomeModal({ lang = 'fr' }) {
           </div>
         </form>
 
-        <p className="text-center text-xs text-slate-500 mt-6">
+        <p className="text-center text-xs text-slate-500 mt-4 sm:mt-6">
           {t.legal}{' '}
           <a href={t.legalHref} className="text-blue-400 hover:underline">
             {t.legalLink}

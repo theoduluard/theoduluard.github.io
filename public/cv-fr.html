@@ -37,8 +37,10 @@
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
+      gap: 12px;
       margin-bottom: 12px;
     }
+    .header-text { flex: 1; }
     .header-text h1 {
       font-size: 19pt;
       font-weight: 800;
@@ -63,6 +65,17 @@
     }
     .contact-row { display: flex; flex-wrap: wrap; gap: 4px 16px; justify-content: flex-end; }
     .contact span { display: flex; align-items: center; gap: 3px; }
+
+    /* ── Photo ── */
+    .photo-cv {
+      width: 68px;
+      height: 68px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center 10%;
+      border: 2px solid var(--gray-5);
+      flex-shrink: 0;
+    }
 
     hr {
       border: none;
@@ -111,15 +124,6 @@
     .entry ul li strong { color: var(--gray-1); }
     .stack { font-size: 7.5pt; color: var(--gray-2); margin-top: 3px; }
     .stack strong { color: var(--gray-2); font-weight: 600; }
-
-    /* ── Skills ── */
-    .skills-grid {
-      display: grid;
-      grid-template-columns: 105px 1fr;
-      gap: 3px 8px;
-    }
-    .skill-cat { font-size: 8pt; font-weight: 700; color: var(--gray-2); padding-top: 1px; }
-    .skill-val { font-size: 8pt; color: var(--gray-2); }
 
     /* ── Projects ── */
     .project { margin-bottom: 7px; }
@@ -178,6 +182,7 @@
           <span><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg><a href="https://portfolio.theoduluard.fr/fr">portfolio.theoduluard.fr/fr</a></span>
         </div>
     </div>
+    <img class="photo-cv" src="photo-cv.jpg" alt="Théo DULUARD" />
   </div>
 
   <hr />
@@ -199,12 +204,12 @@
       </div>
       <div class="entry-sub">Horizon Trading Solutions — Rennes &nbsp;|&nbsp; Éditeur de solutions de trading algorithmique temps réel (130+ collaborateurs)</div>
       <ul>
-        <li>Conception et développement d'un système de Functional Monitoring pour la plateforme H3 : capture temps réel des métriques client via le framework messaging haute performance Aeron</li>
-        <li>Intégration InfluxDB pour la centralisation des événements de marché (ordres, volumes) et visualisation via Grafana ; pipeline d'extraction Flux / export CSV</li>
-        <li>Maintien de la qualité du code dans un environnement distribué : diagnostic et résolution de bugs, amélioration des logiques métier et rédaction de tests unitaires/intégration (JUnit 5, Mockito)</li>
+        <li>Conception et développement d'un système de Functional Monitoring pour la plateforme H3 : capture temps réel des métriques client via le framework messaging haute performance <strong>Aeron</strong></li>
+        <li>Intégration <strong>InfluxDB</strong> pour la centralisation des événements de marché (ordres, volumes) et visualisation via <strong>Grafana</strong> ; pipeline d'extraction Flux / export CSV</li>
+        <li>Maintien de la qualité du code dans un environnement distribué : diagnostic et résolution de bugs, amélioration des logiques métier et rédaction de tests unitaires/intégration (<strong>JUnit 5</strong>, <strong>Mockito</strong>)</li>
         <li>Cycle Agile Scrum (sprints 2 semaines) : grooming, estimation, code review</li>
       </ul>
-      <div class="stack">Stack : Java, Aeron, InfluxDB, Flux, Grafana, PostgreSQL, JUnit 5, Mockito, Gradle, GitLab CI, Jenkins, Docker, Jira</div>
+      <div class="stack"><strong>Stack :</strong> Java, Aeron, InfluxDB, Flux, Grafana, PostgreSQL, JUnit 5, Mockito, Gradle, GitLab CI, Jenkins, Docker, Jira</div>
     </div>
   </section>
 
@@ -217,7 +222,8 @@
         <div class="entry-title">Master en Informatique — Ingénierie Logicielle</div>
         <div class="entry-date">2024 – 2026</div>
       </div>
-      <div class="entry-sub">Université de Rennes &nbsp;|&nbsp; Architecture micro-services, DSL/Langium, WebSocket/RabbitMQ, Sécurité/Keycloak (OAuth 2.0)</div>
+      <div class="entry-sub">Université de Rennes</div>
+      <div class="stack"><strong>Stack :</strong> Java, Spring Boot, Spring Cloud Gateway, Keycloak (OAuth 2.0), RabbitMQ, WebSocket, Langium, TypeScript, React, PostgreSQL, Docker, GitLab CI</div>
     </div>
 
     <div class="entry">
@@ -225,22 +231,8 @@
         <div class="entry-title">Licence en Informatique</div>
         <div class="entry-date">2021 – 2024</div>
       </div>
-      <div class="entry-sub">Université du Mans &nbsp;|&nbsp; Algorithmique, POO, BDD relationnelles, Réseaux, Génie Logiciel</div>
-    </div>
-  </section>
-
-  <!-- COMPÉTENCES -->
-  <section>
-    <h2>Compétences Techniques</h2>
-    <div class="skills-grid">
-      <div class="skill-cat">Langages</div>
-      <div class="skill-val">Java (principal), JavaScript, TypeScript, Python, C, SQL</div>
-      <div class="skill-cat">Backend</div>
-      <div class="skill-val">Spring Boot, Spring Data JPA, Hibernate, REST API, JUnit 5, Mockito, Gradle, Maven</div>
-      <div class="skill-cat">Frontend</div>
-      <div class="skill-val">React, React Native, TypeScript, Expo, HTML/CSS, Tailwind CSS</div>
-      <div class="skill-cat">Données / DevOps</div>
-      <div class="skill-val">PostgreSQL, MySQL, InfluxDB, Docker, GitLab CI/CD, Jenkins, AWS EC2</div>
+      <div class="entry-sub">Université du Mans</div>
+      <div class="stack"><strong>Stack :</strong> Java, C, Python, SQL, HTML/CSS, Algorithmique, Réseaux, POO, Génie Logiciel</div>
     </div>
   </section>
 
@@ -254,7 +246,7 @@
         <div class="project-level">Master 2 · <a href="https://github.com/theoduluard/LazyMail">github.com/theoduluard/LazyMail</a></div>
       </div>
       <p>Assistant vocal IA de gestion d'emails — architecture Backend-For-Frontend, 11 micro-services Docker, LLM local Ollama/Llama 3.1, anonymisation automatique des données (Privacy by Design).</p>
-      <div class="stack">Stack : Java, Spring Boot, Spring Cloud Gateway, JUnit, React TypeScript, NestJS, PostgreSQL, Keycloak, Docker, GitLab CI</div>
+      <div class="stack"><strong>Stack :</strong> Java, Spring Boot, Spring Cloud Gateway, JUnit, React TypeScript, NestJS, PostgreSQL, Keycloak, Docker, GitLab CI</div>
     </div>
 
     <div class="project">
@@ -262,8 +254,8 @@
         <div class="project-title">Jibrax API — Gestion de projet collaboratif</div>
         <div class="project-level">Master 2 · <a href="https://github.com/theoduluard/Jibrax-API">github.com/theoduluard/Jibrax-API</a></div>
       </div>
-      <p>API REST complète (Utilisateurs, Équipes, Projets, Tâches) avec opérations CRUD, requêtes avancées et authentification Keycloak. Déployée sur Railway.</p>
-      <div class="stack">Stack : Java, Spring Boot, PostgreSQL, Keycloak, Docker</div>
+      <p>API REST complète (Utilisateurs, Équipes, Projets, Tâches) avec opérations CRUD, requêtes avancées et authentification Keycloak. Déployée sur jibrax-api.theoduluard.fr.</p>
+      <div class="stack"><strong>Stack :</strong> Java, Spring Boot, Spring Data JPA, Hibernate, PostgreSQL, Keycloak, Docker, TrueNAS</div>
     </div>
 
     <div class="project">
@@ -272,7 +264,7 @@
         <div class="project-level">Master 2 · <a href="https://github.com/theoduluard/DSL_RoboML">github.com/theoduluard/DSL_RoboML</a></div>
       </div>
       <p>Langage dédié (DSL) pour robot 4 roues : métamodèle Ecore, éditeur VSCode (Langium), interpréteur web (P5.js) et compilateur Arduino.</p>
-      <div class="stack">Stack : Ecore/Eclipse, Langium, TypeScript, P5.js, Arduino (C++)</div>
+      <div class="stack"><strong>Stack :</strong> Ecore/Eclipse, Langium, TypeScript, P5.js, Arduino (C++)</div>
     </div>
 
     <div class="project">
@@ -281,7 +273,7 @@
         <div class="project-level">Master 2 · <a href="https://github.com/theoduluard/allo-mission">github.com/theoduluard/allo-mission</a></div>
       </div>
       <p>Plateforme mobile cross-platform iOS/Android de mise en relation professionnelle, double interface recruteur/candidat avec authentification Firebase.</p>
-      <div class="stack">Stack : React Native, TypeScript, Expo, Firebase</div>
+      <div class="stack"><strong>Stack :</strong> React Native, TypeScript, Expo, Firebase</div>
     </div>
   </section>
 

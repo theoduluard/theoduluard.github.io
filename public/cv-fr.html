@@ -35,21 +35,29 @@
     /* ── Header ── */
     .header {
       display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 12px;
-      margin-bottom: 12px;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 10px;
     }
-    .header-text { flex: 1; }
-    .header-text h1 {
+    .photo-cv {
+      width: 82px;
+      height: 82px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center 10%;
+      border: 2px solid var(--gray-5);
+      flex-shrink: 0;
+    }
+    .header-center { flex: 1; }
+    .header-center h1 {
       font-size: 19pt;
       font-weight: 800;
       color: var(--gray-1);
       letter-spacing: -0.5px;
       line-height: 1.1;
     }
-    .header-text h1 span { color: var(--blue); }
-    .header-text .title {
+    .header-center h1 span { color: var(--blue); }
+    .header-center .title {
       font-size: 10.5pt;
       font-weight: 600;
       color: var(--gray-3);
@@ -62,21 +70,10 @@
       font-size: 8pt;
       color: var(--gray-3);
       align-items: flex-end;
-    }
-    .contact-row { display: flex; flex-wrap: wrap; gap: 4px 16px; justify-content: flex-end; }
-    .contact span { display: flex; align-items: center; gap: 3px; }
-
-    /* ── Photo ── */
-    .photo-cv {
-      width: 85px;
-      height: 85px;
-      border-radius: 50%;
-      object-fit: cover;
-      object-position: center 10%;
-      border: 2px solid var(--gray-5);
       flex-shrink: 0;
-      margin-right: 14px;
     }
+    .contact-row { display: flex; flex-wrap: wrap; gap: 4px 14px; justify-content: flex-end; }
+    .contact span { display: flex; align-items: center; gap: 3px; }
 
     hr {
       border: none;
@@ -123,8 +120,9 @@
     .entry ul { padding-left: 12px; margin-bottom: 3px; }
     .entry ul li { font-size: 8.5pt; color: var(--gray-2); margin-bottom: 1.5px; line-height: 1.45; }
     .entry ul li strong { color: var(--gray-1); }
-    .stack { font-size: 7.5pt; color: var(--gray-2); margin-top: 3px; }
+    .stack { font-size: 7.5pt; color: var(--gray-2); margin-top: 3px; text-align: left; }
     .stack strong { color: var(--gray-2); font-weight: 600; }
+    .entry-sub { text-align: left; }
 
     /* ── Projects ── */
     .project { margin-bottom: 7px; }
@@ -142,12 +140,15 @@
 
     /* ── Print ── */
     @media print {
-      @page { size: A4 portrait; margin: 0; }
-      html { font-size: 9pt; }
-      body { padding: 8mm 11mm; max-width: none; }
-      section { margin-bottom: 8px; }
-      .entry { margin-bottom: 7px; }
-      .project { margin-bottom: 5px; }
+      @page { size: A4 portrait; margin: 12mm 13mm; }
+      html { font-size: 8.6pt; }
+      body { padding: 0; max-width: none; }
+      section { margin-bottom: 6px; }
+      .entry { margin-bottom: 5px; }
+      .project { margin-bottom: 4px; }
+      .profile p { line-height: 1.45; }
+      .entry ul li { line-height: 1.35; margin-bottom: 1px; }
+      .header { margin-bottom: 8px; }
       a { color: var(--gray-2) !important; }
       .no-print { display: none !important; }
     }
@@ -169,7 +170,7 @@
   <!-- HEADER -->
   <div class="header">
     <img class="photo-cv" src="photo-cv.jpg" alt="Théo DULUARD" />
-    <div class="header-text">
+    <div class="header-center">
       <h1>Théo <span>DULUARD</span></h1>
       <div class="title">Développeur Java / Fullstack</div>
     </div>

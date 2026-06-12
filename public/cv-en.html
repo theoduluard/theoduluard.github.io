@@ -149,15 +149,22 @@
 
     /* ── Print ── */
     @media print {
-      @page { size: A4 portrait; margin: 12mm 13mm; }
-      html { font-size: 8.6pt; }
+      @page { size: A4 portrait; margin: 9mm 12mm; }
+      html { font-size: 8.2pt; }
       body { padding: 0; max-width: none; }
-      section { margin-bottom: 6px; }
-      .entry { margin-bottom: 5px; }
-      .project { margin-bottom: 4px; }
-      .profile p { line-height: 1.45; }
-      .entry ul li { line-height: 1.35; margin-bottom: 1px; }
-      .header { margin-bottom: 8px; }
+      section { margin-bottom: 5px; }
+      section h2 { margin-bottom: 5px; padding-bottom: 2px; }
+      .entry { margin-bottom: 4px; }
+      .project { margin-bottom: 3px; }
+      .profile p { line-height: 1.4; }
+      .entry ul { margin-bottom: 2px; }
+      .entry ul li { line-height: 1.3; margin-bottom: 0; }
+      .stack { margin-top: 2px; }
+      .header { margin-bottom: 6px; gap: 14px; }
+      .photo-cv { width: 82px; height: 82px; }
+      .header-right h1 { font-size: 19pt; }
+      .header-right .title { font-size: 10.5pt; margin-bottom: 4px; }
+      hr { margin: 7px 0; }
       a { color: var(--gray-2) !important; }
       .no-print { display: none !important; }
     }

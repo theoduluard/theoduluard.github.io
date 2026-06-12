@@ -205,10 +205,48 @@
     /* ── Print ── */
     @media print {
       @page { size: A4 portrait; margin: 0; }
-      html { font-size: 9pt; }
+      html { font-size: 7.8pt; }
       body { background: none; padding: 0; display: block; }
-      .page { width: 210mm; min-height: 297mm; box-shadow: none; }
-      .sidebar { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+      .page { width: 210mm; height: 297mm; overflow: hidden; box-shadow: none; }
+
+      /* Sidebar */
+      .sidebar {
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+        padding: 6mm 5mm 4mm;
+      }
+      .sidebar-photo { height: 44mm; aspect-ratio: unset; }
+      .s-div { margin: 5px 0; }
+      .s-title { font-size: 5.6pt; margin-bottom: 4px; }
+      .c-list { gap: 4px; }
+      .c-item { font-size: 6.5pt; }
+      .skill-cat { font-size: 5.8pt; }
+      .skill-tag { font-size: 5.8pt; padding: 1px 4px; }
+      .l-item { font-size: 6.8pt; }
+      .qual-item { font-size: 6.8pt; }
+      .eng-title { font-size: 6.6pt; }
+      .eng-date { font-size: 5.6pt; }
+      .eng-list { gap: 4px; }
+      .interests { font-size: 6.8pt; }
+
+      /* Main */
+      .main { padding: 6mm 7mm 4mm 6mm; }
+      .main-header { margin-bottom: 6px; padding-bottom: 0; }
+      .main-header h1 { font-size: 26pt; }
+      .main-header .job-title { font-size: 11pt; margin-top: 3px; }
+      .section { margin-bottom: 6px; }
+      .section h2 { margin-bottom: 4px; padding-bottom: 2px; }
+      .profile-text { font-size: 7.2pt; line-height: 1.45; }
+      .entry { margin-bottom: 5px; }
+      .entry-title { font-size: 8pt; }
+      .entry-sub { font-size: 6.8pt; margin: 2px 0 3px; }
+      .entry ul li { font-size: 7pt; margin-bottom: 2px; line-height: 1.35; }
+      .stack { font-size: 6.2pt; margin-top: 2px; }
+      .project { margin-bottom: 5px; }
+      .proj-title { font-size: 7.6pt; }
+      .proj-meta { font-size: 6.2pt; }
+      .proj-desc { font-size: 6.8pt; margin: 2px 0; line-height: 1.35; }
+
       .print-btn { display: none !important; }
       a { text-decoration: none; }
     }

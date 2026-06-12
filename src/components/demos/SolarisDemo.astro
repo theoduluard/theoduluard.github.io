@@ -1,0 +1,132 @@
+---
+// Démo Solaris Bank — Kafka Saga + 2FA + fraud detection
+---
+<div class="w-full font-mono text-xs select-none">
+  <div class="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden shadow-xl">
+
+    <!-- URL bar -->
+    <div class="bg-[#0d1117] px-4 py-2.5 flex items-center gap-3 border-b border-slate-800">
+      <div class="flex gap-1.5 shrink-0">
+        <div class="w-2.5 h-2.5 rounded-full bg-red-500/70"></div>
+        <div class="w-2.5 h-2.5 rounded-full bg-yellow-500/70"></div>
+        <div class="w-2.5 h-2.5 rounded-full bg-green-500/70"></div>
+      </div>
+      <div id="solaris-url" class="flex-1 bg-slate-800/60 rounded px-2.5 py-1 text-[11px] text-slate-400 truncate transition-all duration-300">
+        POST /api/auth/login
+      </div>
+      <div id="solaris-status" class="shrink-0 text-[10px] font-bold px-2 py-0.5 rounded bg-blue-900/50 text-blue-400">200</div>
+    </div>
+
+    <!-- Response body -->
+    <div class="p-4 bg-[#0d1117] text-slate-300 min-h-[230px] overflow-hidden relative">
+
+      <!-- Step 0: 2FA Login -->
+      <div id="solaris-res-0" class="solaris-res absolute inset-4 transition-all duration-500 opacity-100 translate-y-0">
+        <span class="text-slate-500">// Authentification 2FA — OTP envoyé par mail</span><br/>
+        <span class="text-blue-400">&#123;</span><br/>
+        &nbsp;&nbsp;<span class="text-sky-300">"step"</span>: <span class="text-green-300">"OTP_REQUIRED"</span>,<br/>
+        &nbsp;&nbsp;<span class="text-sky-300">"message"</span>: <span class="text-green-300">"Code envoyé à t.***@gmail.com"</span>,<br/>
+        &nbsp;&nbsp;<span class="text-sky-300">"expires_in"</span>: <span class="text-purple-400">600</span>,<br/>
+        &nbsp;&nbsp;<span class="text-sky-300">"attempts_left"</span>: <span class="text-purple-400">3</span><br/>
+        <span class="text-blue-400">}</span>
+      </div>
+
+      <!-- Step 1: Transfer initiated (Saga PENDING) -->
+      <div id="solaris-res-1" class="solaris-res absolute inset-4 transition-all duration-500 opacity-0 translate-y-4">
+        <span class="text-slate-500">// Virement initié — Pattern Saga Kafka</span><br/>
+        <span class="text-blue-400">&#123;</span><br/>
+        &nbsp;&nbsp;<span class="text-sky-300">"transactionId"</span>: <span class="text-green-300">"txn_8f2a..."</span>,<br/>
+        &nbsp;&nbsp;<span class="text-sky-300">"status"</span>: <span class="text-orange-300">"PENDING"</span>,<br/>
+        &nbsp;&nbsp;<span class="text-sky-300">"amount"</span>: <span class="text-purple-400">1500.00</span>,<br/>
+        &nbsp;&nbsp;<span class="text-sky-300">"currency"</span>: <span class="text-green-300">"EUR"</span>,<br/>
+        &nbsp;&nbsp;<span class="text-sky-300">"idempotencyKey"</span>: <span class="text-green-300">"uuid-4f9c..."</span><br/>
+        <span class="text-blue-400">}</span>
+      </div>
+
+      <!-- Step 2: Kafka events — fraud + debit -->
+      <div id="solaris-res-2" class="solaris-res absolute inset-4 transition-all duration-500 opacity-0 translate-y-4">
+        <span class="text-slate-500">// Événements Kafka — consommateurs parallèles</span><br/>
+        <span class="text-yellow-400">▶ fraud-service</span>&nbsp;&nbsp;&nbsp;<span class="text-green-400">CLEAR</span>&nbsp;&nbsp;<span class="text-slate-600">montant normal</span><br/>
+        <span class="text-yellow-400">▶ account-service</span>&nbsp;<span class="text-green-400">DEBIT_OK</span>&nbsp;<span class="text-slate-600">solde suffisant</span><br/>
+        <span class="text-yellow-400">▶ audit-service</span>&nbsp;&nbsp;&nbsp;<span class="text-blue-400">LOGGED</span>&nbsp;&nbsp;<span class="text-slate-600">txn enregistrée</span><br/>
+        <span class="text-yellow-400">▶ notif-service</span>&nbsp;&nbsp;&nbsp;<span class="text-blue-400">SENT</span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="text-slate-600">e-mail envoyé</span><br/>
+        <br/>
+        <span class="text-sky-300">"status"</span>: <span class="text-green-400">"COMPLETED"</span>
+      </div>
+
+      <!-- Step 3: Fraud alert -->
+      <div id="solaris-res-3" class="solaris-res absolute inset-4 transition-all duration-500 opacity-0 translate-y-4">
+        <span class="text-slate-500">// Détection de fraude temps réel</span><br/>
+        <span class="text-blue-400">&#123;</span><br/>
+        &nbsp;&nbsp;<span class="text-sky-300">"transactionId"</span>: <span class="text-green-300">"txn_9d1b..."</span>,<br/>
+        &nbsp;&nbsp;<span class="text-sky-300">"status"</span>: <span class="text-red-400">"BLOCKED"</span>,<br/>
+        &nbsp;&nbsp;<span class="text-sky-300">"reason"</span>: <span class="text-red-300">"STRUCTURATION_PATTERN"</span>,<br/>
+        &nbsp;&nbsp;<span class="text-sky-300">"alert_sent_to"</span>: <span class="text-green-300">"admin@solaris.fr"</span>,<br/>
+        &nbsp;&nbsp;<span class="text-sky-300">"amount"</span>: <span class="text-purple-400">9900.00</span><br/>
+        <span class="text-blue-400">}</span>
+      </div>
+
+    </div>
+
+    <!-- Step indicators + label -->
+    <div class="bg-[#0d1117] border-t border-slate-800 px-4 py-2.5 flex items-center gap-2">
+      <div id="solaris-dot-0" class="solaris-dot w-1.5 h-1.5 rounded-full bg-blue-400 transition-colors duration-300"></div>
+      <div id="solaris-dot-1" class="solaris-dot w-1.5 h-1.5 rounded-full bg-slate-700 transition-colors duration-300"></div>
+      <div id="solaris-dot-2" class="solaris-dot w-1.5 h-1.5 rounded-full bg-slate-700 transition-colors duration-300"></div>
+      <div id="solaris-dot-3" class="solaris-dot w-1.5 h-1.5 rounded-full bg-slate-700 transition-colors duration-300"></div>
+      <span id="solaris-label" class="ml-auto text-[10px] text-slate-600">solaris-bank.theoduluard.fr</span>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  const steps = [
+    { method: 'POST', url: '/api/auth/login',          status: '200', statusClass: 'bg-blue-900/50 text-blue-400'   },
+    { method: 'POST', url: '/api/transfers',            status: '202', statusClass: 'bg-orange-900/50 text-orange-400' },
+    { method: 'GET',  url: '/api/transfers/txn_8f2a',  status: '200', statusClass: 'bg-green-900/50 text-green-400'  },
+    { method: 'GET',  url: '/api/fraud/alerts/latest',  status: '200', statusClass: 'bg-red-900/50 text-red-400'     },
+  ];
+
+  let current = 0;
+
+  function solarisStep(next: number) {
+    const prev = current;
+    current = next;
+
+    const prevRes = document.getElementById(`solaris-res-${prev}`);
+    if (prevRes) {
+      prevRes.classList.remove('opacity-100', 'translate-y-0');
+      prevRes.classList.add('opacity-0', '-translate-y-4');
+    }
+
+    const s = steps[current];
+    const urlEl    = document.getElementById('solaris-url');
+    const statusEl = document.getElementById('solaris-status');
+    if (urlEl)    urlEl.textContent = `${s.method} ${s.url}`;
+    if (statusEl) { statusEl.textContent = s.status; statusEl.className = `shrink-0 text-[10px] font-bold px-2 py-0.5 rounded ${s.statusClass}`; }
+
+    setTimeout(() => {
+      const nextRes = document.getElementById(`solaris-res-${current}`);
+      if (nextRes) {
+        nextRes.classList.remove('opacity-0', 'translate-y-4', '-translate-y-4');
+        nextRes.classList.add('opacity-100', 'translate-y-0');
+      }
+    }, 100);
+
+    document.querySelectorAll('.solaris-dot').forEach((d, i) => {
+      d.classList.toggle('bg-blue-400', i === current);
+      d.classList.toggle('bg-slate-700', i !== current);
+    });
+  }
+
+  document.addEventListener('astro:page-load', () => {
+    current = 0;
+    solarisStep(0);
+    let idx = 0;
+    setInterval(() => {
+      idx = (idx + 1) % steps.length;
+      solarisStep(idx);
+    }, 4000);
+  });
+</script>

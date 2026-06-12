@@ -7,101 +7,176 @@
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
     :root {
-      --blue:    #2563eb;
-      --blue-lt: #eff6ff;
-      --gray-1:  #111827;
-      --gray-2:  #374151;
-      --gray-3:  #6b7280;
-      --gray-4:  #9ca3af;
-      --gray-5:  #e5e7eb;
-      --white:   #ffffff;
-      --font:    'Segoe UI', system-ui, -apple-system, Arial, sans-serif;
+      --sidebar-bg:  #1e293b;
+      --sidebar-alt: #273549;
+      --accent:      #3b82f6;
+      --accent-lt:   #dbeafe;
+      --white:       #ffffff;
+      --text:        #374151;
+      --dark:        #111827;
+      --muted:       #6b7280;
+      --border:      #e5e7eb;
+      --font: 'Segoe UI', system-ui, -apple-system, Arial, sans-serif;
     }
-    html { font-size: 9.8pt; }
+
+    html { font-size: 9.6pt; }
+
     body {
       font-family: var(--font);
-      color: var(--gray-2);
-      background: var(--white);
-      line-height: 1.45;
-      text-align: justify;
-      max-width: 210mm;
-      margin: 0 auto;
-      padding: 10mm 13mm;
-    }
-    a { color: var(--blue); text-decoration: none; }
-    a:hover { text-decoration: underline; }
-
-    /* ── Header ── */
-    .header {
+      background: #cbd5e1;
       display: flex;
-      align-items: center;
-      gap: 18px;
-      margin-bottom: 10px;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 20px 0;
     }
-    .photo-cv {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      object-fit: cover;
-      object-position: center 10%;
-      border: 2px solid var(--gray-5);
-      flex-shrink: 0;
+
+    /* ═══════════════════════════════════════
+       PAGE WRAPPER
+    ═══════════════════════════════════════ */
+    .page {
+      width: 210mm;
+      min-height: 297mm;
+      background: var(--white);
+      display: flex;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.18);
     }
-    .header-right { flex: 1; }
-    .header-right h1 {
-      font-size: 23pt;
-      font-weight: 800;
-      color: var(--gray-1);
-      letter-spacing: -0.5px;
-      line-height: 1.1;
-      text-align: center;
-    }
-    .header-right h1 span { color: var(--blue); }
-    .header-right .title {
-      font-size: 12pt;
-      font-weight: 600;
-      color: var(--gray-3);
-      margin-top: 3px;
-      margin-bottom: 7px;
-      text-align: center;
-    }
-    .contact {
+
+    /* ═══════════════════════════════════════
+       SIDEBAR
+    ═══════════════════════════════════════ */
+    .sidebar {
+      width: 66mm;
+      background: var(--sidebar-bg);
+      padding: 9mm 6mm 8mm;
       display: flex;
       flex-direction: column;
-      gap: 3px;
-      font-size: 8pt;
-      color: var(--gray-3);
-      align-items: flex-start;
-    }
-    .contact-row { display: flex; flex-wrap: wrap; gap: 4px 16px; justify-content: flex-start; }
-    .contact span { display: flex; align-items: center; gap: 4px; }
-
-    hr {
-      border: none;
-      border-top: 2px solid var(--blue);
-      margin: 10px 0;
-      width: 40px;
+      gap: 0;
+      flex-shrink: 0;
+      print-color-adjust: exact;
+      -webkit-print-color-adjust: exact;
     }
 
-    /* ── Sections ── */
-    section { margin-bottom: 11px; }
-    section h2 {
+    /* Photo */
+    .sidebar-photo {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      object-fit: cover;
+      object-position: center 12%;
+      border: 3px solid var(--accent);
+      display: block;
+      margin: 0 auto 10px;
+    }
+
+    /* Nom */
+    .sidebar-name {
+      text-align: center;
+      margin-bottom: 9px;
+    }
+    .sidebar-name h1 {
+      font-size: 15pt;
+      font-weight: 800;
+      color: var(--white);
+      line-height: 1.1;
+      letter-spacing: -0.3px;
+    }
+    .sidebar-name h1 span { color: var(--accent); }
+    .sidebar-name .job-title {
       font-size: 8pt;
+      font-weight: 500;
+      color: #94a3b8;
+      margin-top: 4px;
+      line-height: 1.3;
+    }
+
+    /* Séparateur */
+    .s-divider {
+      height: 1px;
+      background: rgba(255,255,255,0.1);
+      margin: 7px 0;
+    }
+
+    /* Titres de section sidebar */
+    .s-title {
+      font-size: 6.5pt;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 1.2px;
-      color: var(--blue);
-      border-bottom: 1px solid var(--gray-5);
-      padding-bottom: 3px;
-      margin-bottom: 7px;
+      letter-spacing: 1.4px;
+      color: var(--accent);
+      margin-bottom: 5px;
     }
 
-    /* ── Profile ── */
-    .profile p { font-size: 8.5pt; color: var(--gray-2); line-height: 1.55; }
+    /* Contacts */
+    .contact-list {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      margin-bottom: 0;
+    }
+    .c-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+      font-size: 7.3pt;
+      color: #94a3b8;
+      line-height: 1.35;
+    }
+    .c-item svg { flex-shrink: 0; margin-top: 1px; }
+    .c-item a { color: #94a3b8; text-decoration: none; }
+    .c-item a:hover { color: var(--accent); }
 
-    /* ── Entries ── */
-    .entry { margin-bottom: 9px; }
+    /* Langues */
+    .lang-list {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .lang-item { font-size: 7.5pt; color: #94a3b8; }
+    .lang-item strong { color: var(--white); font-weight: 600; }
+
+    /* Intérêts */
+    .interests {
+      font-size: 7.5pt;
+      color: #94a3b8;
+      line-height: 1.55;
+    }
+
+    /* ═══════════════════════════════════════
+       MAIN
+    ═══════════════════════════════════════ */
+    .main {
+      flex: 1;
+      padding: 8mm 8mm 7mm 7mm;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    /* Section */
+    .section h2 {
+      font-size: 7pt;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.3px;
+      color: var(--accent);
+      border-bottom: 1.5px solid var(--border);
+      padding-bottom: 2px;
+      margin-bottom: 5px;
+    }
+
+    /* Profil */
+    .profile-text {
+      font-size: 8pt;
+      color: var(--text);
+      line-height: 1.5;
+      text-align: justify;
+    }
+
+    /* Entrées (expérience, formation) */
+    .entry { margin-bottom: 5px; }
     .entry:last-child { margin-bottom: 0; }
     .entry-header {
       display: flex;
@@ -109,199 +184,208 @@
       align-items: flex-start;
       gap: 8px;
     }
-    .entry-title { font-size: 9.5pt; font-weight: 700; color: var(--gray-1); }
-    .entry-date  { font-size: 7.5pt; color: var(--gray-3); white-space: nowrap; padding-top: 1px; }
-    .entry-sub   { font-size: 8pt; color: var(--gray-3); margin-bottom: 4px; }
-    .entry-sub strong { color: var(--gray-2); font-weight: 600; }
-    .entry-badge {
-      display: inline-block;
-      font-size: 7pt; font-weight: 600;
-      color: var(--blue); background: var(--blue-lt);
-      border-radius: 3px; padding: 0 5px; margin-bottom: 4px;
-    }
-    .entry ul { padding-left: 12px; margin-bottom: 3px; }
-    .entry ul li { font-size: 8.5pt; color: var(--gray-2); margin-bottom: 1.5px; line-height: 1.45; }
-    .entry ul li strong { color: var(--gray-1); }
-    .stack { font-size: 7.5pt; color: var(--gray-2); margin-top: 3px; text-align: left; }
-    .stack strong { color: var(--gray-2); font-weight: 600; }
-    .entry-sub { text-align: left; }
+    .entry-title { font-size: 8.8pt; font-weight: 700; color: var(--dark); }
+    .entry-date  { font-size: 7pt; color: var(--muted); white-space: nowrap; padding-top: 1px; }
+    .entry-sub   { font-size: 7.5pt; color: var(--muted); margin-bottom: 3px; text-align: left; }
+    .entry ul    { padding-left: 11px; margin-bottom: 2px; }
+    .entry ul li { font-size: 7.8pt; color: var(--text); margin-bottom: 1px; line-height: 1.35; }
+    .entry ul li strong { color: var(--dark); }
+    .stack { font-size: 6.8pt; color: var(--muted); margin-top: 2px; text-align: left; }
+    .stack strong { color: var(--text); font-weight: 600; }
 
-    /* ── Projects ── */
-    .project { margin-bottom: 7px; }
+    /* Projets */
+    .project { margin-bottom: 4px; }
     .project:last-child { margin-bottom: 0; }
-    .project-header { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
-    .project-title  { font-size: 9pt; font-weight: 700; color: var(--gray-1); }
-    .project-level  { font-size: 7.5pt; color: var(--gray-3); white-space: nowrap; }
-    .project p      { font-size: 8pt; color: var(--gray-2); margin: 2px 0 2px; line-height: 1.45; }
-    .project .stack { font-size: 7.5pt; color: var(--gray-3); }
+    .project-header { display: flex; justify-content: space-between; align-items: baseline; gap: 6px; }
+    .project-title  { font-size: 8.3pt; font-weight: 700; color: var(--dark); }
+    .project-meta   { font-size: 6.8pt; color: var(--muted); white-space: nowrap; }
+    .project-meta a { color: var(--accent); text-decoration: none; }
+    .project-desc   { font-size: 7.5pt; color: var(--text); margin: 1px 0 2px; line-height: 1.35; text-align: justify; }
+    .project .stack { font-size: 6.8pt; }
 
-    /* ── Languages ── */
-    .lang-row { display: flex; gap: 28px; }
-    .lang-item { font-size: 8.5pt; }
-    .lang-item strong { color: var(--gray-1); }
-
-    /* ── Print ── */
+    /* ═══════════════════════════════════════
+       PRINT
+    ═══════════════════════════════════════ */
     @media print {
-      @page { size: A4 portrait; margin: 9mm 12mm; }
-      html { font-size: 8.2pt; }
-      body { padding: 0; max-width: none; }
-      section { margin-bottom: 5px; }
-      section h2 { margin-bottom: 5px; padding-bottom: 2px; }
-      .entry { margin-bottom: 4px; }
-      .project { margin-bottom: 3px; }
-      .profile p { line-height: 1.4; }
-      .entry ul { margin-bottom: 2px; }
-      .entry ul li { line-height: 1.3; margin-bottom: 0; }
-      .stack { margin-top: 2px; }
-      .header { margin-bottom: 6px; gap: 14px; }
-      .photo-cv { width: 82px; height: 82px; }
-      .header-right h1 { font-size: 19pt; }
-      .header-right .title { font-size: 10.5pt; margin-bottom: 4px; }
-      hr { margin: 7px 0; }
-      a { color: var(--gray-2) !important; }
-      .no-print { display: none !important; }
+      @page { size: A4 portrait; margin: 0; }
+      html  { font-size: 9pt; }
+      body  { background: none; padding: 0; display: block; }
+      .page {
+        width: 210mm;
+        min-height: 297mm;
+        box-shadow: none;
+      }
+      .sidebar {
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+      }
+      .print-btn { display: none !important; }
+      a { text-decoration: none; }
     }
+
+    /* Bouton */
     .print-btn {
-      position: fixed; bottom: 20px; right: 20px;
-      background: var(--blue); color: white;
+      position: fixed; bottom: 22px; right: 22px;
+      background: var(--accent); color: white;
       font-size: 8.5pt; font-weight: 600;
-      padding: 7px 14px; border-radius: 7px; border: none; cursor: pointer;
-      box-shadow: 0 4px 12px rgba(37,99,235,0.4);
+      padding: 8px 16px; border-radius: 8px; border: none; cursor: pointer;
+      box-shadow: 0 4px 14px rgba(59,130,246,0.45);
+      transition: background .15s;
     }
-    .print-btn:hover { background: #1d4ed8; }
-    @media print { .print-btn { display: none; } }
+    .print-btn:hover { background: #2563eb; }
   </style>
 </head>
 <body>
 
-  <button class="print-btn no-print" onclick="window.print()">⬇ Exporter en PDF</button>
+  <button class="print-btn" onclick="window.print()">⬇ Exporter en PDF</button>
 
-  <!-- HEADER -->
-  <div class="header">
-    <img class="photo-cv" src="photo-cv.jpg" alt="Théo DULUARD" />
-    <div class="header-right">
-      <h1>Théo <span>DULUARD</span></h1>
-      <div class="title">Développeur Java / Fullstack</div>
-      <div class="contact">
-        <div class="contact-row">
-          <span><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 01-2.06 0L2 7"/></svg>theo.duluard7@gmail.com</span>
-          <span><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.14 1.22 2 2 0 012.13 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>+33 6 01 22 75 04</span>
-          <span><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Rennes, France</span>
+  <div class="page">
+
+    <!-- ═══════ SIDEBAR ═══════ -->
+    <div class="sidebar">
+
+      <img class="sidebar-photo" src="photo-cv.jpg" alt="Théo DULUARD" />
+
+      <div class="sidebar-name">
+        <h1>Théo <span>DULUARD</span></h1>
+        <div class="job-title">Développeur Java / Fullstack</div>
+      </div>
+
+      <div class="s-divider"></div>
+
+      <div class="s-title">Contact</div>
+      <div class="contact-list">
+        <div class="c-item">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 01-2.06 0L2 7"/></svg>
+          theo.duluard7@gmail.com
         </div>
-        <div class="contact-row">
-          <span><svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg><a href="https://linkedin.com/in/theo-duluard">linkedin.com/in/theo-duluard</a></span>
-          <span><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg><a href="https://portfolio.theoduluard.fr/fr">portfolio.theoduluard.fr/fr</a></span>
+        <div class="c-item">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.14 1.22 2 2 0 012.13 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          +33 6 01 22 75 04
+        </div>
+        <div class="c-item">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Rennes, France
+        </div>
+        <div class="c-item">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          <a href="https://linkedin.com/in/theo-duluard">linkedin.com/in/theo-duluard</a>
+        </div>
+        <div class="c-item">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+          <a href="https://portfolio.theoduluard.fr/fr">portfolio.theoduluard.fr</a>
         </div>
       </div>
-    </div>
-  </div>
 
-  <hr />
+      <div class="s-divider"></div>
 
-  <!-- PROFIL -->
-  <section class="profile">
-    <h2>Profil</h2>
-    <p>Prochainement diplômé d'un Master en Ingénierie Logicielle à Rennes, j'ai développé mes compétences en backend Java durant deux années d'alternance chez Horizon Trading Solutions, dans un contexte de trading algorithmique haute performance où la fiabilité et la performance sont des contraintes non négociable. Je mène en parallèle des projets personnels et universitaires couvrant l'ensemble de la stack, du backend au frontend, dont certains déployés en production. Je suis actuellement à la recherche d'un poste de Développeur Full Stack en CDI à partir de septembre 2026, sur Rennes ou Le Mans.</p>
-  </section>
-
-  <!-- EXPÉRIENCE -->
-  <section>
-    <h2>Expérience Professionnelle</h2>
-
-    <div class="entry">
-      <div class="entry-header">
-        <div class="entry-title">Développeur Java — Stage & Alternance</div>
-        <div class="entry-date">Juil. 2024 – Août 2026</div>
+      <div class="s-title">Langues</div>
+      <div class="lang-list">
+        <div class="lang-item"><strong>Français</strong> — Langue maternelle</div>
+        <div class="lang-item"><strong>Anglais</strong> — B2 (lu / écrit)</div>
       </div>
-      <div class="entry-sub">Horizon Trading Solutions — Rennes &nbsp;|&nbsp; Éditeur de solutions de trading algorithmique temps réel (130+ collaborateurs)</div>
-      <ul>
-        <li>Conception et développement d'un système de Functional Monitoring pour la plateforme H3 : capture temps réel des métriques client via le framework messaging haute performance <strong>Aeron</strong></li>
-        <li>Intégration <strong>InfluxDB</strong> pour la centralisation des événements de marché (ordres, volumes) et visualisation via <strong>Grafana</strong> ; pipeline d'extraction Flux / export CSV</li>
-        <li>Maintien de la qualité du code dans un environnement distribué : diagnostic et résolution de bugs, amélioration des logiques métier et rédaction de tests unitaires/intégration (<strong>JUnit 5</strong>, <strong>Mockito</strong>)</li>
-        <li>Cycle Agile Scrum (sprints 2 semaines) : grooming, estimation, code review</li>
-      </ul>
-      <div class="stack"><strong>Stack :</strong> Java, Aeron, InfluxDB, Flux, Grafana, PostgreSQL, JUnit 5, Mockito, Gradle, GitLab CI, Jenkins, Docker, Jira</div>
-    </div>
-  </section>
 
-  <!-- FORMATION -->
-  <section>
-    <h2>Formation</h2>
+      <div class="s-divider"></div>
 
-    <div class="entry">
-      <div class="entry-header">
-        <div class="entry-title">Master en Informatique — Ingénierie Logicielle</div>
-        <div class="entry-date">2024 – 2026</div>
+      <div class="s-title">Centres d'intérêt</div>
+      <div class="interests">Volley-ball en club · Padel<br>Voyages (Japon, États-Unis, Turquie…)</div>
+
+    </div><!-- /sidebar -->
+
+    <!-- ═══════ MAIN ═══════ -->
+    <div class="main">
+
+      <!-- PROFIL -->
+      <div class="section">
+        <h2>Profil</h2>
+        <p class="profile-text">Prochainement diplômé d'un Master en Ingénierie Logicielle à Rennes, j'ai développé mes compétences Java backend en alternance chez Horizon Trading Solutions sur 2 ans, dans un contexte de trading algorithmique haute performance où la fiabilité est une contrainte non négociable. Je mène également des projets personnels et universitaires couvrant l'ensemble de la stack, du backend au frontend, dont certains déployés en production. Je suis actuellement à la recherche d'un poste en CDI à partir de septembre 2026, sur Rennes ou Le Mans.</p>
       </div>
-      <div class="entry-sub">Université de Rennes</div>
-      <div class="stack"><strong>Stack :</strong> Java, Spring Boot, Spring Cloud Gateway, Keycloak (OAuth 2.0), RabbitMQ, WebSocket, Langium, TypeScript, React, PostgreSQL, Docker, GitLab CI</div>
-    </div>
 
-    <div class="entry">
-      <div class="entry-header">
-        <div class="entry-title">Licence en Informatique</div>
-        <div class="entry-date">2021 – 2024</div>
+      <!-- EXPÉRIENCE -->
+      <div class="section">
+        <h2>Expérience Professionnelle</h2>
+        <div class="entry">
+          <div class="entry-header">
+            <div class="entry-title">Développeur Java — Stage &amp; Alternance</div>
+            <div class="entry-date">Juil. 2024 – Août 2026</div>
+          </div>
+          <div class="entry-sub">Horizon Trading Solutions — Rennes &nbsp;|&nbsp; Éditeur de solutions de trading algorithmique temps réel (130+ collaborateurs)</div>
+          <ul>
+            <li>Conception et développement d'un système de Functional Monitoring pour la plateforme H3 : capture temps réel des métriques client via <strong>Aeron</strong></li>
+            <li>Intégration <strong>InfluxDB</strong> pour la centralisation des événements de marché et visualisation via <strong>Grafana</strong> ; pipeline d'extraction Flux / export CSV</li>
+            <li>Maintien de la qualité du code : diagnostic de bugs, amélioration des logiques métier, tests unitaires/intégration (<strong>JUnit 5</strong>, <strong>Mockito</strong>)</li>
+            <li>Cycle Agile Scrum (sprints 2 semaines) : grooming, estimation, code review</li>
+          </ul>
+          <div class="stack"><strong>Stack :</strong> Java, Aeron, InfluxDB, Flux, Grafana, PostgreSQL, JUnit 5, Mockito, Gradle, GitLab CI, Jenkins, Docker, Jira</div>
+        </div>
       </div>
-      <div class="entry-sub">Université du Mans</div>
-      <div class="stack"><strong>Stack :</strong> Java, C, Python, SQL, HTML/CSS, Algorithmique, Réseaux, POO, Génie Logiciel</div>
-    </div>
-  </section>
 
-  <!-- PROJETS -->
-  <section>
-    <h2>Projets Significatifs</h2>
-
-    <div class="project">
-      <div class="project-header">
-        <div class="project-title">VoiceMail AI Assistant</div>
-        <div class="project-level">Master 2 · <a href="https://github.com/theoduluard/LazyMail">github.com/theoduluard/LazyMail</a></div>
+      <!-- FORMATION -->
+      <div class="section">
+        <h2>Formation</h2>
+        <div class="entry">
+          <div class="entry-header">
+            <div class="entry-title">Master en Informatique — Ingénierie Logicielle</div>
+            <div class="entry-date">2024 – 2026</div>
+          </div>
+          <div class="entry-sub">Université de Rennes</div>
+          <div class="stack"><strong>Stack :</strong> Java, Spring Boot, Spring Cloud Gateway, Keycloak (OAuth 2.0), RabbitMQ, WebSocket, Langium, TypeScript, React, PostgreSQL, Docker, GitLab CI</div>
+        </div>
+        <div class="entry">
+          <div class="entry-header">
+            <div class="entry-title">Licence en Informatique</div>
+            <div class="entry-date">2021 – 2024</div>
+          </div>
+          <div class="entry-sub">Université du Mans</div>
+          <div class="stack"><strong>Stack :</strong> Java, C, Python, SQL, HTML/CSS, Algorithmique, Réseaux, POO, Génie Logiciel</div>
+        </div>
       </div>
-      <p>Assistant vocal IA de gestion d'emails — architecture Backend-For-Frontend, 11 micro-services Docker, LLM local Ollama/Llama 3.1, anonymisation automatique des données (Privacy by Design).</p>
-      <div class="stack"><strong>Stack :</strong> Java, Spring Boot, Spring Cloud Gateway, JUnit, React TypeScript, NestJS, PostgreSQL, Keycloak, Docker, GitLab CI</div>
-    </div>
 
-    <div class="project">
-      <div class="project-header">
-        <div class="project-title">Jibrax API — Gestion de projet collaboratif</div>
-        <div class="project-level">Master 2 · <a href="https://github.com/theoduluard/Jibrax-API">github.com/theoduluard/Jibrax-API</a></div>
-      </div>
-      <p>API REST complète (Utilisateurs, Équipes, Projets, Tâches) avec opérations CRUD, requêtes avancées et authentification Keycloak. Déployée sur jibrax-api.theoduluard.fr.</p>
-      <div class="stack"><strong>Stack :</strong> Java, Spring Boot, Spring Data JPA, Hibernate, PostgreSQL, Keycloak, Docker, TrueNAS</div>
-    </div>
+      <!-- PROJETS -->
+      <div class="section">
+        <h2>Projets Significatifs</h2>
 
-    <div class="project">
-      <div class="project-header">
-        <div class="project-title">RoboML — DSL &amp; Ingénierie des langages</div>
-        <div class="project-level">Master 2 · <a href="https://github.com/theoduluard/DSL_RoboML">github.com/theoduluard/DSL_RoboML</a></div>
-      </div>
-      <p>Langage dédié (DSL) pour robot 4 roues : métamodèle Ecore, éditeur VSCode (Langium), interpréteur web (P5.js) et compilateur Arduino.</p>
-      <div class="stack"><strong>Stack :</strong> Ecore/Eclipse, Langium, TypeScript, P5.js, Arduino (C++)</div>
-    </div>
+        <div class="project">
+          <div class="project-header">
+            <div class="project-title">VoiceMail AI Assistant</div>
+            <div class="project-meta">Master 2 · <a href="https://github.com/theoduluard/LazyMail">github.com/theoduluard/LazyMail</a></div>
+          </div>
+          <p class="project-desc">Assistant vocal IA de gestion d'emails — architecture BFF, 11 micro-services Docker, LLM local Ollama/Llama 3.1, anonymisation automatique (Privacy by Design).</p>
+          <div class="stack"><strong>Stack :</strong> Java, Spring Boot, Spring Cloud Gateway, JUnit, React TypeScript, NestJS, PostgreSQL, Keycloak, Docker, GitLab CI</div>
+        </div>
 
-    <div class="project">
-      <div class="project-header">
-        <div class="project-title">Allo-Mission — Application Mobile</div>
-        <div class="project-level">Master 2 · <a href="https://github.com/theoduluard/allo-mission">github.com/theoduluard/allo-mission</a></div>
-      </div>
-      <p>Plateforme mobile cross-platform iOS/Android de mise en relation professionnelle, double interface recruteur/candidat avec authentification Firebase.</p>
-      <div class="stack"><strong>Stack :</strong> React Native, TypeScript, Expo, Firebase</div>
-    </div>
-  </section>
+        <div class="project">
+          <div class="project-header">
+            <div class="project-title">Jibrax API — Gestion de projet collaboratif</div>
+            <div class="project-meta">Master 2 · <a href="https://github.com/theoduluard/Jibrax-API">github.com/theoduluard/Jibrax-API</a></div>
+          </div>
+          <p class="project-desc">API REST complète (Utilisateurs, Équipes, Projets, Tâches) avec CRUD, requêtes avancées et authentification Keycloak. Déployée sur jibrax-api.theoduluard.fr.</p>
+          <div class="stack"><strong>Stack :</strong> Java, Spring Boot, Spring Data JPA, Hibernate, PostgreSQL, Keycloak, Docker, TrueNAS</div>
+        </div>
 
-  <!-- LANGUES -->
-  <section>
-    <h2>Langues</h2>
-    <div class="lang-row">
-      <div class="lang-item">Français — Langue maternelle</div>
-      <div class="lang-item">Anglais — Bon niveau B2 (lecture/écriture technique)</div>
-    </div>
-  </section>
+        <div class="project">
+          <div class="project-header">
+            <div class="project-title">RoboML — DSL &amp; Ingénierie des langages</div>
+            <div class="project-meta">Master 2 · <a href="https://github.com/theoduluard/DSL_RoboML">github.com/theoduluard/DSL_RoboML</a></div>
+          </div>
+          <p class="project-desc">Langage dédié (DSL) pour robot 4 roues : métamodèle Ecore, éditeur VSCode (Langium), interpréteur web (P5.js) et compilateur Arduino.</p>
+          <div class="stack"><strong>Stack :</strong> Ecore/Eclipse, Langium, TypeScript, P5.js, Arduino (C++)</div>
+        </div>
 
-  <!-- CENTRES D'INTÉRÊT -->
-  <section>
-    <h2>Centres d'intérêt</h2>
-    <p style="font-size: 8.5pt;">Volley-ball en club &nbsp;·&nbsp; Padel &nbsp;·&nbsp; Voyages (Japon, États-Unis, Turquie…)</p>
-  </section>
+        <div class="project">
+          <div class="project-header">
+            <div class="project-title">Allo-Mission — Application Mobile</div>
+            <div class="project-meta">Master 2 · <a href="https://github.com/theoduluard/allo-mission">github.com/theoduluard/allo-mission</a></div>
+          </div>
+          <p class="project-desc">Plateforme mobile cross-platform iOS/Android de mise en relation professionnelle, double interface recruteur/candidat avec authentification Firebase.</p>
+          <div class="stack"><strong>Stack :</strong> React Native, TypeScript, Expo, Firebase</div>
+        </div>
+
+      </div><!-- /projets -->
+
+    </div><!-- /main -->
+
+  </div><!-- /page -->
 
 </body>
 </html>

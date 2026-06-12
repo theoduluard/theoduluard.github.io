@@ -6,6 +6,7 @@ import SectionHeader from '../../components/SectionHeader.astro';
 import EducationEntry from '../../components/EducationEntry.astro';
 import ExperienceCard from '../../components/ExperienceCard.astro';
 import ProjectCard from '../../components/ProjectCard.astro';
+import SolarisDemo from '../../components/demos/SolarisDemo.astro';
 import AlloMissionDemo from '../../components/demos/AlloMissionDemo.astro';
 import JibraxDemo from '../../components/demos/JibraxDemo.astro';
 import RoboMLDemo from '../../components/demos/RoboMLDemo.astro';
@@ -199,6 +200,30 @@ import JacoBhashiDemo from '../../components/demos/JacoBhashiDemo.astro';
 	<!-- ══════════════ PROJETS ══════════════ -->
 	<section id="projets" class="py-20 border-t border-slate-800">
 		<SectionHeader number="03" title="Projets Personnels et Universitaires" />
+
+		<!-- Solaris Bank -->
+		<ProjectCard
+			color="green"
+			categoryLabel="Plateforme Bancaire · Micro-services"
+			categoryIcon='<svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>'
+			levelLabel="Projet Personnel"
+			title="Solaris Bank"
+			description="Plateforme bancaire complète simulant un système financier réel : 13 micro-services indépendants, chacun avec sa propre base PostgreSQL, communiquant via HTTP (API Gateway) et événements <strong>Kafka</strong>."
+			bullets={[
+				'<strong>Pattern Saga Kafka :</strong> Virements asynchrones avec idempotence — PENDING → DEBIT_CONFIRMED → COMPLETED ; consommateurs parallèles (fraude, audit, notifications).',
+				'<strong>Sécurité multi-couches :</strong> 2FA par OTP (6 chiffres, 10 min, 3 essais), JWT access/refresh en HttpOnly cookies, RBAC CLIENT/ADMIN, secret inter-services.',
+				'<strong>Fraud & Analytics :</strong> Détection temps réel (structuration, montants suspects) via Kafka, agrégation des dépenses par catégorie, génération de PDF RIB.',
+				'<strong>CI/CD self-hosted :</strong> GitHub Actions → GHCR → déploiement SSH sur serveur personnel, disponible sur solaris-bank.theoduluard.fr.',
+			]}
+			stack={["Java 21", "Spring Boot", "Spring Security", "Kafka", "PostgreSQL", "Flyway", "React 19", "TypeScript", "Tailwind v4", "shadcn/ui", "Docker", "GitHub Actions", "JJWT", "JUnit 5"]}
+			links={[
+				{ label: "Voir l'application", href: "https://solaris-bank.theoduluard.fr", icon: "play", variant: "primary", primaryColor: "blue" },
+				{ label: "Code Source", href: "https://github.com/theoduluard/banking-platform", icon: "github" },
+			]}
+			demoPanelClass="p-6 flex items-center justify-center"
+		>
+			<SolarisDemo />
+		</ProjectCard>
 
 		<!-- VoiceMail AI Assistant -->
 		<ProjectCard

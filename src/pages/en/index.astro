@@ -6,6 +6,7 @@ import SectionHeader from '../../components/SectionHeader.astro';
 import EducationEntry from '../../components/EducationEntry.astro';
 import ExperienceCard from '../../components/ExperienceCard.astro';
 import ProjectCard from '../../components/ProjectCard.astro';
+import SolarisDemo from '../../components/demos/SolarisDemo.astro';
 import AlloMissionDemo from '../../components/demos/AlloMissionDemo.astro';
 import JibraxDemo from '../../components/demos/JibraxDemo.astro';
 import RoboMLDemo from '../../components/demos/RoboMLDemo.astro';
@@ -193,6 +194,31 @@ import JacoBhashiDemo from '../../components/demos/JacoBhashiDemo.astro';
 	<!-- ══════════════ PROJECTS ══════════════ -->
 	<section id="projects" class="py-20 border-t border-slate-800">
 		<SectionHeader number="03" title="Personal & Academic Projects" />
+
+		<!-- Solaris Bank -->
+		<ProjectCard
+			color="green"
+			categoryLabel="Banking Platform · Microservices"
+			categoryIcon='<svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>'
+			levelLabel="Personal Project"
+			title="Solaris Bank"
+			description="Full-featured banking platform simulating a real financial system: 13 independent microservices, each with its own PostgreSQL database, communicating via HTTP (API Gateway) and <strong>Kafka</strong> events."
+			bullets={[
+				'<strong>Kafka Saga pattern:</strong> Asynchronous transfers with idempotency — PENDING → DEBIT_CONFIRMED → COMPLETED; parallel consumers (fraud, audit, notifications).',
+				'<strong>Multi-layer security:</strong> 2FA via OTP (6 digits, 10 min, 3 attempts), JWT access/refresh in HttpOnly cookies, CLIENT/ADMIN RBAC, inter-service secret.',
+				'<strong>Fraud & Analytics:</strong> Real-time detection (structuring, suspicious amounts) via Kafka, spending aggregation by category, PDF RIB generation.',
+				'<strong>Self-hosted CI/CD:</strong> GitHub Actions → GHCR → SSH deployment to personal server, live at solaris-bank.theoduluard.fr.',
+			]}
+			stack={["Java 21", "Spring Boot", "Spring Security", "Kafka", "PostgreSQL", "Flyway", "React 19", "TypeScript", "Tailwind v4", "shadcn/ui", "Docker", "GitHub Actions", "JJWT", "JUnit 5"]}
+			stackLabel="Tech Stack"
+			links={[
+				{ label: "Live App", href: "https://solaris-bank.theoduluard.fr", icon: "play", variant: "primary", primaryColor: "blue" },
+				{ label: "Source Code", href: "https://github.com/theoduluard/banking-platform", icon: "github" },
+			]}
+			demoPanelClass="p-6 flex items-center justify-center"
+		>
+			<SolarisDemo />
+		</ProjectCard>
 
 		<!-- VoiceMail AI Assistant -->
 		<ProjectCard

@@ -119,23 +119,35 @@
 
     /* ── En-tête nom ── */
     .main-header {
-      text-align: center;
+      display: flex;
+      align-items: center;
+      gap: 14px;
       padding-bottom: 10px;
       margin-bottom: 12px;
+      border-bottom: 1px solid var(--border);
     }
-    .main-header h1 {
-      font-size: 30pt;
+    .header-photo {
+      width: 72px;
+      aspect-ratio: 3 / 4;
+      border-radius: 6px;
+      object-fit: cover;
+      object-position: center 8%;
+      flex-shrink: 0;
+    }
+    .header-text { flex: 1; }
+    .header-text h1 {
+      font-size: 28pt;
       font-weight: 800;
       color: var(--dark);
       letter-spacing: -0.8px;
       line-height: 1.05;
     }
-    .main-header h1 span { color: var(--accent); }
-    .main-header .job-title {
-      font-size: 13pt;
+    .header-text h1 span { color: var(--accent); }
+    .header-text .job-title {
+      font-size: 11.5pt;
       font-weight: 500;
       color: var(--muted);
-      margin-top: 5px;
+      margin-top: 4px;
       letter-spacing: 0.3px;
     }
 
@@ -220,10 +232,6 @@
     <!-- ══════ SIDEBAR ══════ -->
     <div class="sidebar">
 
-      <img class="sidebar-photo" src="photo-cv.jpg" alt="Théo DULUARD" />
-
-      <div class="s-div"></div>
-
       <div class="s-title">Contact</div>
       <div class="c-list">
         <div class="c-item">
@@ -303,10 +311,13 @@
     <!-- ══════ MAIN ══════ -->
     <div class="main">
 
-      <!-- NOM centré -->
+      <!-- NOM + PHOTO -->
       <div class="main-header">
-        <h1>Théo <span>DULUARD</span></h1>
-        <div class="job-title">Développeur Fullstack</div>
+        <img class="header-photo" src="photo-cv.jpg" alt="Théo DULUARD" />
+        <div class="header-text">
+          <h1>Théo <span>DULUARD</span></h1>
+          <div class="job-title">Développeur Fullstack</div>
+        </div>
       </div>
 
       <!-- PROFIL -->
@@ -342,7 +353,7 @@
             <div class="entry-title">Master en Informatique — Ingénierie Logicielle</div>
             <div class="entry-date">2024 – 2026</div>
           </div>
-          <div class="entry-sub">Université de Rennes</div>
+          <div class="entry-sub">Université de Rennes &nbsp;|&nbsp; M1 obtenu avec <strong>mention Bien</strong></div>
           <div class="stack"><strong>Stack :</strong> Java, Spring Boot, Spring Cloud Gateway, Keycloak (OAuth 2.0), RabbitMQ, WebSocket, Langium, TypeScript, React, PostgreSQL, Docker, GitLab CI</div>
         </div>
         <div class="entry">
@@ -350,8 +361,61 @@
             <div class="entry-title">Licence en Informatique</div>
             <div class="entry-date">2021 – 2024</div>
           </div>
-          <div class="entry-sub">Université du Mans</div>
+          <div class="entry-sub">Université du Mans &nbsp;|&nbsp; Obtenue avec <strong>mention Bien</strong></div>
           <div class="stack"><strong>Stack :</strong> Java, C, Python, SQL, HTML/CSS, Algorithmique, Réseaux, POO, Génie Logiciel</div>
+        </div>
+        <div class="entry">
+          <div class="entry-row">
+            <div class="entry-title">L1 Mathématiques et Applications — Validée</div>
+            <div class="entry-date">2020 – 2021</div>
+          </div>
+          <div class="entry-sub">Université du Mans</div>
+        </div>
+        <div class="entry">
+          <div class="entry-row">
+            <div class="entry-title">Baccalauréat Scientifique — option Mathématiques</div>
+            <div class="entry-date">2020</div>
+          </div>
+          <div class="entry-sub">Mention <strong>Assez Bien</strong></div>
+        </div>
+      </div>
+
+      <!-- ENGAGEMENT ASSOCIATIF -->
+      <div class="section">
+        <h2>Engagement Associatif</h2>
+        <div class="entry">
+          <div class="entry-row">
+            <div class="entry-title">Secrétaire Administratif</div>
+            <div class="entry-date">Sept. 2022 – Sept. 2024</div>
+          </div>
+          <div class="entry-sub">Union Nationale des Arbitres de Football — Section Départementale de la Sarthe</div>
+        </div>
+        <div class="entry">
+          <div class="entry-row">
+            <div class="entry-title">Arbitre de Ligue</div>
+            <div class="entry-date">Sept. 2018 – Août 2022</div>
+          </div>
+          <div class="entry-sub">Ligue de Football des Pays de la Loire</div>
+        </div>
+        <div class="entry">
+          <div class="entry-row">
+            <div class="entry-title">Arbitre de District</div>
+            <div class="entry-date">Oct. 2017 – Août 2018</div>
+          </div>
+          <div class="entry-sub">District de la Sarthe de Football</div>
+        </div>
+        <div class="entry">
+          <div class="entry-row">
+            <div class="entry-title">Porte-drapeau</div>
+            <div class="entry-date">Sept. 2020 – Sept. 2024</div>
+          </div>
+          <div class="entry-sub">Union Nationale des Combattants — Section Sarthe, Commune de Trangé</div>
+        </div>
+        <div class="entry">
+          <div class="entry-row">
+            <div class="entry-title">Pilotage d'avion — Examen théorique ABL obtenu</div>
+            <div class="entry-date">Sept. 2017 – Fév. 2019</div>
+          </div>
         </div>
       </div>
 
